@@ -14,10 +14,10 @@ class FinderSync: FIFinderSync {
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
         guard menuKind == .contextualMenuForItems else { return nil }
 
-        let menu = NSMenu(title: "GPGeze")
+        let menu = NSMenu(title: "BetterGPG")
 
         let encrypt = NSMenuItem(
-            title: "Encrypt with GPGeze…",
+            title: "Encrypt with BetterGPG…",
             action: #selector(encryptSelected(_:)),
             keyEquivalent: ""
         )
@@ -26,7 +26,7 @@ class FinderSync: FIFinderSync {
         menu.addItem(encrypt)
 
         let decrypt = NSMenuItem(
-            title: "Decrypt with GPGeze…",
+            title: "Decrypt with BetterGPG…",
             action: #selector(decryptSelected(_:)),
             keyEquivalent: ""
         )
@@ -58,7 +58,7 @@ class FinderSync: FIFinderSync {
         guard let json = try? JSONEncoder().encode(paths) else { return }
         let b64 = json.base64EncodedString()
         guard let escaped = b64.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "gpgeze://\(action)?data=\(escaped)") else { return }
+              let url = URL(string: "bettergpg://\(action)?data=\(escaped)") else { return }
         NSWorkspace.shared.open(url)
     }
 }

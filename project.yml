@@ -1,7 +1,7 @@
-name: GPGeze
+name: BetterGPG
 
 options:
-  bundleIdPrefix: com.gpgeze
+  bundleIdPrefix: com.better-gpg
   deploymentTarget:
     macOS: "14.0"
   xcodeVersion: "15.0"
@@ -20,38 +20,38 @@ settings:
     DEVELOPMENT_TEAM: ""
 
 targets:
-  GPGeze:
+  BetterGPG:
     type: application
     platform: macOS
     sources:
-      - GPGeze/Sources
+      - BetterGPG/Sources
     resources:
-      - GPGeze/Resources/Assets.xcassets
+      - BetterGPG/Resources/Assets.xcassets
     dependencies:
-      - target: GPGezeFinderExtension
+      - target: BetterGPGFinderExtension
         embed: true
         codeSign: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.gpgeze.app
-        PRODUCT_NAME: GPGeze
-        INFOPLIST_FILE: GPGeze/Resources/Info.plist
-        CODE_SIGN_ENTITLEMENTS: GPGeze/GPGeze.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.better-gpg.app
+        PRODUCT_NAME: BetterGPG
+        INFOPLIST_FILE: BetterGPG/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BetterGPG/BetterGPG.entitlements
         ENABLE_HARDENED_RUNTIME: YES
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
 
-  GPGezeFinderExtension:
+  BetterGPGFinderExtension:
     type: app-extension
     platform: macOS
     sources:
-      - GPGeze/FinderExtension/Sources
+      - BetterGPG/FinderExtension/Sources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.gpgeze.app.findersync
-        PRODUCT_NAME: GPGezeFinderExtension
-        INFOPLIST_FILE: GPGeze/FinderExtension/Info.plist
-        CODE_SIGN_ENTITLEMENTS: GPGeze/FinderExtension/GPGezeFinderExtension.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.better-gpg.app.findersync
+        PRODUCT_NAME: BetterGPGFinderExtension
+        INFOPLIST_FILE: BetterGPG/FinderExtension/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BetterGPG/FinderExtension/BetterGPGFinderExtension.entitlements
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"

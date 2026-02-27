@@ -1,11 +1,11 @@
 import SwiftUI
 
 @main
-struct GPGezeApp: App {
+struct BetterGPGApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        Window("GPGeze", id: "main") {
+        Window("BetterGPG", id: "main") {
             ContentView()
                 .environmentObject(appDelegate.appState)
                 .frame(minWidth: 860, minHeight: 560)

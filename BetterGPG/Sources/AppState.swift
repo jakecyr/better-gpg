@@ -232,7 +232,7 @@ final class AppState: ObservableObject {
 
     private static func groupsStorageURL() -> URL {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return support.appendingPathComponent("GPGeze/groups.json")
+        return support.appendingPathComponent("BetterGPG/groups.json")
     }
 
     // MARK: - Helpers

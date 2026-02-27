@@ -27,15 +27,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 
-    // MARK: - URL scheme handler (gpgeze://encrypt or gpgeze://decrypt)
-    // Called when the FinderSync extension opens gpgeze://action?data=<base64json>
+    // MARK: - URL scheme handler (bettergpg://encrypt or bettergpg://decrypt)
+    // Called when the FinderSync extension opens bettergpg://action?data=<base64json>
 
     func application(_ application: NSApplication, open urls: [URL]) {
         let gpgExtensions = ["gpg", "asc"]
         let fileURLs = urls.filter { url in
             url.isFileURL && gpgExtensions.contains(url.pathExtension.lowercased())
         }
-        let gpgezeURLs = urls.filter { $0.scheme == "gpgeze" }
+        let bettergpgURLs = urls.filter { $0.scheme == "bettergpg" }
 
         // Handle double-click on .gpg/.asc files: decrypt in background, don't show window
         if !fileURLs.isEmpty {
@@ -44,13 +44,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
 
-        for url in gpgezeURLs {
-            handleGPGezeURL(url)
+        for url in bettergpgURLs {
+            handleBetterGPGURL(url)
         }
     }
 
-    private func handleGPGezeURL(_ url: URL) {
-        guard url.scheme == "gpgeze",
+    private func handleBetterGPGURL(_ url: URL) {
+        guard url.scheme == "bettergpg",
               let action = url.host,
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let dataParam = components.queryItems?.first(where: { $0.name == "data" })?.value

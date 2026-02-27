@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F122502097D90F52D6A6400 /* GPGKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */; };
+		323EB0F76A088DB7D9EF3903 /* KeyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */; };
+		38512E6B832EC9E8DE521344 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B367F5D20F02FE7168F298DB /* GroupsView.swift */; };
+		4ECC5EE1CC5692B6B2697CCF /* BetterGPGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */; };
+		505ACC8D71B4F134CDC65B71 /* KeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6DFC7C6374066CD967F3E3 /* KeysView.swift */; };
+		521526B78A66E43F2D4D7557 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05F91EC4DEB353758896A6F /* FinderSync.swift */; };
+		567521F896C6A993466C9D3D /* EncryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F44F100474139023D27CA8 /* EncryptView.swift */; };
+		59CF1C149D50BD10FFB22CB9 /* ServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */; };
+		6402CD2BE8FC49E9970EE127 /* GPGNotInstalledBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */; };
+		724F419C565611FEE3ED7D50 /* DecryptionFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */; };
+		76D0E433564F08A07504CBBF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED41B1FB6CCA274454CA9CA /* AppState.swift */; };
+		7DB7469075BD5584F656CF9F /* DecryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */; };
+		7F5BBE9BE68BC00CED02491F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B72E58F5B33171622C300F /* SettingsView.swift */; };
+		810AE46122E4C0279739754F /* EncryptionInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */; };
+		A2BDE4C2854A21FFDB77DA77 /* GPGService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE09F54F1C43A2439A8D0A /* GPGService.swift */; };
+		B1FEFA06016B616B92C6173D /* FileDropZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */; };
+		BCBEEB6E0F433D406EE5AC93 /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C257D0377D8727B50E134B /* GroupDetailView.swift */; };
+		DAEFAC99C55C90F77B4C3A5D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2E46028030AEA7A38C27DE /* AppSettings.swift */; };
+		DBA8876FAD460C2E3D1F7FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64FFF91A73899BE9616746E /* AppDelegate.swift */; };
+		E7BC007AE23E9A07D11EF5EF /* BetterGPGFinderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4F68083A9AE2DF57AC0B172 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BCF092311FC9BDF491E24 /* ContentView.swift */; };
+		F5C4C556611335516104312B /* EncryptionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */; };
+		F69E3E1578E5E6A750EE7CE2 /* ImportKeySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7EF6166132196F5FE92E8C71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC205B54A0B763EB8E236082 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CF28CC55EAA14674FC2A313;
+			remoteInfo = BetterGPGFinderExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03CEDBE1123B589F1A5E2DF3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E7BC007AE23E9A07D11EF5EF /* BetterGPGFinderExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGKey.swift; sourceTree = "<group>"; };
+		10C257D0377D8727B50E134B /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
+		1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfoPanel.swift; sourceTree = "<group>"; };
+		351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHandler.swift; sourceTree = "<group>"; };
+		4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGroup.swift; sourceTree = "<group>"; };
+		6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterGPGApp.swift; sourceTree = "<group>"; };
+		71B72E58F5B33171622C300F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptionFailedView.swift; sourceTree = "<group>"; };
+		72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeySheet.swift; sourceTree = "<group>"; };
+		798EC74958B81A8649633017 /* BetterGPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterGPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGNotInstalledBanner.swift; sourceTree = "<group>"; };
+		8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BetterGPGFinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropZone.swift; sourceTree = "<group>"; };
+		926BCF092311FC9BDF491E24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9C2E46028030AEA7A38C27DE /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		AED41B1FB6CCA274454CA9CA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B367F5D20F02FE7168F298DB /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		BB6DFC7C6374066CD967F3E3 /* KeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysView.swift; sourceTree = "<group>"; };
+		D1EE09F54F1C43A2439A8D0A /* GPGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGService.swift; sourceTree = "<group>"; };
+		D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptView.swift; sourceTree = "<group>"; };
+		E05F91EC4DEB353758896A6F /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
+		E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfo.swift; sourceTree = "<group>"; };
+		E5F44F100474139023D27CA8 /* EncryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptView.swift; sourceTree = "<group>"; };
+		E64FFF91A73899BE9616746E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		03070A8866E450C620341AC2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D1EE09F54F1C43A2439A8D0A /* GPGService.swift */,
+				351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1D04D4B8E3CDAA2B1CCB4990 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				10C257D0377D8727B50E134B /* GroupDetailView.swift */,
+				B367F5D20F02FE7168F298DB /* GroupsView.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
+		3B010DD15C6C2EC356983D60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				798EC74958B81A8649633017 /* BetterGPG.app */,
+				8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		46E175611B0487834084465F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				926BCF092311FC9BDF491E24 /* ContentView.swift */,
+				B026E862B86DC4F8AF866C5E /* Decrypt */,
+				6FFFE1F954C52E58F426EC67 /* Encrypt */,
+				1D04D4B8E3CDAA2B1CCB4990 /* Groups */,
+				E2E95A270FBC30061130E351 /* Keys */,
+				FACBC364637CDD1F07AC7F20 /* Settings */,
+				66AB1783DA2F3C6D563B7CAC /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		66AB1783DA2F3C6D563B7CAC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */,
+				7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		6FFFE1F954C52E58F426EC67 /* Encrypt */ = {
+			isa = PBXGroup;
+			children = (
+				E5F44F100474139023D27CA8 /* EncryptView.swift */,
+			);
+			path = Encrypt;
+			sourceTree = "<group>";
+		};
+		AA2DDAE661F5188881806818 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E64FFF91A73899BE9616746E /* AppDelegate.swift */,
+				AED41B1FB6CCA274454CA9CA /* AppState.swift */,
+				6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */,
+				E4D6E6F62E4EA8DFD0D0088E /* Models */,
+				03070A8866E450C620341AC2 /* Services */,
+				46E175611B0487834084465F /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		B026E862B86DC4F8AF866C5E /* Decrypt */ = {
+			isa = PBXGroup;
+			children = (
+				7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */,
+				D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */,
+				1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */,
+			);
+			path = Decrypt;
+			sourceTree = "<group>";
+		};
+		C56BC5B6DECA8F4CBA4405E8 = {
+			isa = PBXGroup;
+			children = (
+				D5A36C34592D9536F996FAED /* BetterGPG */,
+				3B010DD15C6C2EC356983D60 /* Products */,
+			);
+			indentWidth = 4;
+			sourceTree = "<group>";
+			tabWidth = 4;
+		};
+		D5A36C34592D9536F996FAED /* BetterGPG */ = {
+			isa = PBXGroup;
+			children = (
+				E7096EFF938D8DF569367768 /* FinderExtension */,
+				AA2DDAE661F5188881806818 /* Sources */,
+			);
+			path = BetterGPG;
+			sourceTree = "<group>";
+		};
+		E2E95A270FBC30061130E351 /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */,
+				BB6DFC7C6374066CD967F3E3 /* KeysView.swift */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
+		E4D6E6F62E4EA8DFD0D0088E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C2E46028030AEA7A38C27DE /* AppSettings.swift */,
+				E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */,
+				08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */,
+				4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E7096EFF938D8DF569367768 /* FinderExtension */ = {
+			isa = PBXGroup;
+			children = (
+				F2F74B1B4169D4F46DBFE2EE /* Sources */,
+			);
+			path = FinderExtension;
+			sourceTree = "<group>";
+		};
+		F2F74B1B4169D4F46DBFE2EE /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E05F91EC4DEB353758896A6F /* FinderSync.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		FACBC364637CDD1F07AC7F20 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				71B72E58F5B33171622C300F /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CF28CC55EAA14674FC2A313 /* BetterGPGFinderExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFA8183FC1C47D8AB381E583 /* Build configuration list for PBXNativeTarget "BetterGPGFinderExtension" */;
+			buildPhases = (
+				392D65402B99A28C81D21FA1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BetterGPGFinderExtension;
+			packageProductDependencies = (
+			);
+			productName = BetterGPGFinderExtension;
+			productReference = 8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		CE842D6B8E3C78A3B057D17E /* BetterGPG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 253CB7BE006D31401A0FE0D9 /* Build configuration list for PBXNativeTarget "BetterGPG" */;
+			buildPhases = (
+				7592A1FDEB177E8AA913549D /* Sources */,
+				03CEDBE1123B589F1A5E2DF3 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92AD5E861BC3E8337E15F272 /* PBXTargetDependency */,
+			);
+			name = BetterGPG;
+			packageProductDependencies = (
+			);
+			productName = BetterGPG;
+			productReference = 798EC74958B81A8649633017 /* BetterGPG.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FC205B54A0B763EB8E236082 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					7CF28CC55EAA14674FC2A313 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					CE842D6B8E3C78A3B057D17E = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 168504A6CD6C379320DE6181 /* Build configuration list for PBXProject "BetterGPG" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C56BC5B6DECA8F4CBA4405E8;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE842D6B8E3C78A3B057D17E /* BetterGPG */,
+				7CF28CC55EAA14674FC2A313 /* BetterGPGFinderExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		392D65402B99A28C81D21FA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				521526B78A66E43F2D4D7557 /* FinderSync.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7592A1FDEB177E8AA913549D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBA8876FAD460C2E3D1F7FC8 /* AppDelegate.swift in Sources */,
+				DAEFAC99C55C90F77B4C3A5D /* AppSettings.swift in Sources */,
+				76D0E433564F08A07504CBBF /* AppState.swift in Sources */,
+				4ECC5EE1CC5692B6B2697CCF /* BetterGPGApp.swift in Sources */,
+				F4F68083A9AE2DF57AC0B172 /* ContentView.swift in Sources */,
+				7DB7469075BD5584F656CF9F /* DecryptView.swift in Sources */,
+				724F419C565611FEE3ED7D50 /* DecryptionFailedView.swift in Sources */,
+				567521F896C6A993466C9D3D /* EncryptView.swift in Sources */,
+				F5C4C556611335516104312B /* EncryptionInfo.swift in Sources */,
+				810AE46122E4C0279739754F /* EncryptionInfoPanel.swift in Sources */,
+				B1FEFA06016B616B92C6173D /* FileDropZone.swift in Sources */,
+				0F122502097D90F52D6A6400 /* GPGKey.swift in Sources */,
+				6402CD2BE8FC49E9970EE127 /* GPGNotInstalledBanner.swift in Sources */,
+				A2BDE4C2854A21FFDB77DA77 /* GPGService.swift in Sources */,
+				BCBEEB6E0F433D406EE5AC93 /* GroupDetailView.swift in Sources */,
+				38512E6B832EC9E8DE521344 /* GroupsView.swift in Sources */,
+				F69E3E1578E5E6A750EE7CE2 /* ImportKeySheet.swift in Sources */,
+				323EB0F76A088DB7D9EF3903 /* KeyGroup.swift in Sources */,
+				505ACC8D71B4F134CDC65B71 /* KeysView.swift in Sources */,
+				59CF1C149D50BD10FFB22CB9 /* ServiceHandler.swift in Sources */,
+				7F5BBE9BE68BC00CED02491F /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		92AD5E861BC3E8337E15F272 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CF28CC55EAA14674FC2A313 /* BetterGPGFinderExtension */;
+			targetProxy = 7EF6166132196F5FE92E8C71 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		206EDA320E5E9FA502A902F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BetterGPG/FinderExtension/BetterGPGFinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = BetterGPG/FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app.findersync";
+				PRODUCT_NAME = BetterGPGFinderExtension;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		31890486EAC95E4073C17454 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		78760C4EC6D08491B92399C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BetterGPG/BetterGPG.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BetterGPG/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app";
+				PRODUCT_NAME = BetterGPG;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7A79662870495A6D2836FED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		C1CD42B326BC25C9902A80FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BetterGPG/BetterGPG.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = BetterGPG/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app";
+				PRODUCT_NAME = BetterGPG;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D0F73D2136675DB557BA1D7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BetterGPG/FinderExtension/BetterGPGFinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = BetterGPG/FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app.findersync";
+				PRODUCT_NAME = BetterGPGFinderExtension;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		168504A6CD6C379320DE6181 /* Build configuration list for PBXProject "BetterGPG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A79662870495A6D2836FED0 /* Debug */,
+				31890486EAC95E4073C17454 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		253CB7BE006D31401A0FE0D9 /* Build configuration list for PBXNativeTarget "BetterGPG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1CD42B326BC25C9902A80FC /* Debug */,
+				78760C4EC6D08491B92399C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CFA8183FC1C47D8AB381E583 /* Build configuration list for PBXNativeTarget "BetterGPGFinderExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F73D2136675DB557BA1D7D /* Debug */,
+				206EDA320E5E9FA502A902F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FC205B54A0B763EB8E236082 /* Project object */;
+}

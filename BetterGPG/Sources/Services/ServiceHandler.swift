@@ -1,6 +1,6 @@
 import AppKit
 
-/// Handles macOS Services (right-click in Finder → Services → "Encrypt/Decrypt with GPGeze…").
+/// Handles macOS Services (right-click in Finder → Services → "Encrypt/Decrypt with BetterGPG…").
 ///
 /// The NSMessage keys in Info.plist map to the @objc selectors below.
 /// NSPortName is NOT set in the plist — without it macOS uses the standard delivery

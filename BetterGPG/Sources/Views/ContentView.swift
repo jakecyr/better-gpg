@@ -91,7 +91,7 @@ struct ContentView: View {
                 .tag(item)
         }
         .listStyle(.sidebar)
-        .navigationTitle("GPGeze")
+        .navigationTitle("BetterGPG")
         .navigationSplitViewColumnWidth(min: 180, ideal: 200)
     }
 

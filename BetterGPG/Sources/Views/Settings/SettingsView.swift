@@ -104,7 +104,7 @@ struct SettingsView: View {
                 .tint(extensionEnabled ? .secondary : .accentColor)
 
                 if !extensionEnabled {
-                    Text("After clicking Enable, tick the checkbox next to **GPGezeFinderExtension** in the sheet that appears.")
+                    Text("After clicking Enable, tick the checkbox next to **BetterGPGFinderExtension** in the sheet that appears.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

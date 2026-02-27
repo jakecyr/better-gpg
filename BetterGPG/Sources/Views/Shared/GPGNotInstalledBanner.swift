@@ -9,7 +9,7 @@ struct GPGNotInstalledBanner: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("GPG Not Found")
                     .font(.headline)
-                Text("Install GPG to use GPGeze. Run `brew install gnupg` in Terminal, or download GPG Suite from gpgtools.org. Then update the path in Settings.")
+                Text("Install GPG to use BetterGPG. Run `brew install gnupg` in Terminal, or download GPG Suite from gpgtools.org. Then update the path in Settings.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

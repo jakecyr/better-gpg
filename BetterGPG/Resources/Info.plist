@@ -25,11 +25,11 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2024 GPGeze. All rights reserved.</string>
+	<string>Copyright © 2024 BetterGPG. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 
-	<!-- Document type: open .gpg files with GPGeze (double-click in Finder) -->
+	<!-- Document type: open .gpg files with BetterGPG (double-click in Finder) -->
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -48,15 +48,15 @@
 	</array>
 
 	<!-- Custom URL scheme so the FinderSync extension can launch the app and pass
-	     file paths: gpgeze://encrypt?data=<base64json> or gpgeze://decrypt?data=... -->
+	     file paths: bettergpg://encrypt?data=<base64json> or bettergpg://decrypt?data=... -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.gpgeze.app</string>
+			<string>com.better-gpg.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>gpgeze</string>
+				<string>bettergpg</string>
 			</array>
 		</dict>
 	</array>
@@ -78,7 +78,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Encrypt with GPGeze…</string>
+				<string>Encrypt with BetterGPG…</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>encryptFiles</string>
@@ -92,7 +92,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Decrypt with GPGeze…</string>
+				<string>Decrypt with BetterGPG…</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>decryptFiles</string>

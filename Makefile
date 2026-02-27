@@ -1,12 +1,12 @@
 .DEFAULT_GOAL := help
 .PHONY: generate build-dev build-prod run run-dev run-prod install install-services clean help
 
-SCHEME := GPGeze
+SCHEME := BetterGPG
 CONFIG_DEV := Debug
 CONFIG_PROD := Release
 BUILD_DIR := build
-DEV_APP := $(BUILD_DIR)/Build/Products/$(CONFIG_DEV)/GPGeze.app
-PROD_APP := $(BUILD_DIR)/Build/Products/$(CONFIG_PROD)/GPGeze.app
+DEV_APP := $(BUILD_DIR)/Build/Products/$(CONFIG_DEV)/BetterGPG.app
+PROD_APP := $(BUILD_DIR)/Build/Products/$(CONFIG_PROD)/BetterGPG.app
 
 # Generate Xcode project from project.yml (requires xcodegen)
 generate:
@@ -34,11 +34,11 @@ run-prod: prod
 
 # Copy prod app to /Applications and refresh Finder services
 install: prod
-	rm -rf /Applications/GPGeze.app
-	cp -R $(PROD_APP) /Applications/GPGeze.app
+	rm -rf /Applications/BetterGPG.app
+	cp -R $(PROD_APP) /Applications/BetterGPG.app
 	@echo "Refreshing macOS services registration…"
 	/System/Library/CoreServices/pbs -update
-	@echo "Done. Open GPGeze from /Applications — services will appear in Finder right-click."
+	@echo "Done. Open BetterGPG from /Applications — services will appear in Finder right-click."
 
 # Refresh Finder services without reinstalling (run after first launch too)
 install-services:
@@ -48,12 +48,12 @@ install-services:
 # Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
-	rm -rf GPGeze.xcodeproj
-	rm -rf GPGeze.xcworkspace
+	rm -rf BetterGPG.xcodeproj
+	rm -rf BetterGPG.xcworkspace
 
 # Default target
 help:
-	@echo "GPGeze Makefile"
+	@echo "BetterGPG Makefile"
 	@echo ""
 	@echo "Targets:"
 	@echo "  make generate    - Generate Xcode project from project.yml"

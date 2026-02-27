@@ -1,4 +1,4 @@
-# GPGeze
+# BetterGPG
 
 A native macOS app for managing GPG keys, organizing recipients into groups, and encrypting/decrypting files — with Finder right-click integration.
 
@@ -8,7 +8,7 @@ A native macOS app for managing GPG keys, organizing recipients into groups, and
 - **Groups** — Organize keys into named groups (e.g. "Team Alpha", "Finance")
 - **Encrypt** — Encrypt files for a group with one click; optionally always include your own key
 - **Decrypt** — Decrypt `.gpg` files (passphrase handled by system pinentry)
-- **Finder Integration** — Right-click any file in Finder → **Services → Encrypt with GPGeze…** / **Decrypt with GPGeze…**
+- **Finder Integration** — Right-click any file in Finder → **Services → Encrypt with BetterGPG…** / **Decrypt with BetterGPG…**
 - **Settings** — Configure GPG binary path, own-key auto-include, signing, and output options
 
 ## Requirements
@@ -26,21 +26,21 @@ brew install xcodegen
 xcodegen generate
 
 # Open in Xcode
-open GPGeze.xcodeproj
+open BetterGPG.xcodeproj
 ```
 
 Or build from the command line:
 
 ```bash
-xcodebuild -project GPGeze.xcodeproj -scheme GPGeze -destination "platform=macOS" build
+xcodebuild -project BetterGPG.xcodeproj -scheme BetterGPG -destination "platform=macOS" build
 ```
 
 ## Finder Right-Click Services
 
-After first launch, GPGeze registers two macOS Services:
+After first launch, BetterGPG registers two macOS Services:
 
-- **Encrypt with GPGeze…** — Select files in Finder, right-click → Services → Encrypt with GPGeze…
-- **Decrypt with GPGeze…** — Right-click `.gpg` files → Services → Decrypt with GPGeze…
+- **Encrypt with BetterGPG…** — Select files in Finder, right-click → Services → Encrypt with BetterGPG…
+- **Decrypt with BetterGPG…** — Right-click `.gpg` files → Services → Decrypt with BetterGPG…
 
 The app must be running (or will be launched automatically) when a service is invoked. If services don't appear immediately, log out and back in, or run:
 
@@ -51,11 +51,11 @@ The app must be running (or will be launched automatically) when a service is in
 ## Project Structure
 
 ```
-GPGeze/
+better-gpg/
 ├── project.yml                        # xcodegen project spec
-└── GPGeze/
+└── BetterGPG/
     ├── Sources/
-    │   ├── GPGezeApp.swift            # App entry point
+    │   ├── BetterGPGApp.swift         # App entry point
     │   ├── AppDelegate.swift          # NSServices registration
     │   ├── AppState.swift             # Central state & business logic
     │   ├── Models/
@@ -81,5 +81,5 @@ GPGeze/
 ## Notes
 
 - App sandbox is **disabled** to allow running `gpg` and accessing arbitrary files. This app is for direct distribution, not App Store.
-- Passphrase entry for decryption is handled entirely by GPG's system pinentry agent — GPGeze never handles passphrases directly.
-- Groups and settings are stored in `~/Library/Application Support/GPGeze/`.
+- Passphrase entry for decryption is handled entirely by GPG's system pinentry agent — BetterGPG never handles passphrases directly.
+- Groups and settings are stored in `~/Library/Application Support/BetterGPG/`.
