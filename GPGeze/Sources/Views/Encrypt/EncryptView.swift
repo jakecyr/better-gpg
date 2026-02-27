@@ -37,7 +37,6 @@ struct EncryptView: View {
                     FileDropZone(
                         label: "Drop files here or click to choose",
                         systemImage: "plus.circle.dashed",
-                        allowedTypes: [],
                         droppedURLs: $files
                     ) {
                         chooseFiles()
@@ -130,11 +129,14 @@ struct EncryptView: View {
                 }
             }
         }
-        .onAppear {
-            if !appState.pendingEncryptURLs.isEmpty {
-                files = appState.pendingEncryptURLs
-                appState.pendingEncryptURLs = []
-            }
+        .task(id: appState.pendingEncryptURLs) {
+            // Process pending URLs when view appears or when they arrive (e.g. from right-click)
+            guard !appState.pendingEncryptURLs.isEmpty else { return }
+            let urls = appState.pendingEncryptURLs
+            appState.pendingEncryptURLs = []
+            files = urls
+            resultURLs = []
+            errorMessage = nil
         }
         .onChange(of: appState.pendingEncryptURLs) { _, urls in
             if !urls.isEmpty {

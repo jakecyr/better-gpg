@@ -15,6 +15,8 @@ final class AppState: ObservableObject {
     // Pending file requests from Finder right-click
     @Published var pendingEncryptURLs: [URL] = []
     @Published var pendingDecryptURLs: [URL] = []
+    /// When true, DecryptView should auto-decrypt immediately (e.g. when opened via double-click on .gpg file)
+    @Published var pendingAutoDecrypt: Bool = false
     @Published var activeTab: SidebarItem = .keys
 
     // MARK: - Private
@@ -139,6 +141,23 @@ final class AppState: ObservableObject {
         return outputs
     }
 
+    func getEncryptionInfo(for fileURL: URL) async throws -> EncryptionInfo {
+        let (recipientKeyIds, signerKeyId) = try await gpgService.listEncryptionInfo(fileURL: fileURL)
+        var isCurrentUserRecipient = false
+        for keyId in recipientKeyIds {
+            if await gpgService.hasSecretKey(keyId: keyId) {
+                isCurrentUserRecipient = true
+                break
+            }
+        }
+        return EncryptionInfo(
+            recipientKeyIds: recipientKeyIds,
+            signerKeyId: signerKeyId,
+            isCurrentUserRecipient: isCurrentUserRecipient,
+            isSigned: signerKeyId != nil
+        )
+    }
+
     func decrypt(files: [URL]) async throws -> [URL] {
         var outputs: [URL] = []
         for file in files {
@@ -154,6 +173,33 @@ final class AppState: ObservableObject {
             outputs.append(outURL)
         }
         return outputs
+    }
+
+    /// Attempts to decrypt files in the background. Returns successful outputs and failed files with their encryption info.
+    func backgroundDecrypt(urls: [URL]) async -> (success: [URL], failed: [(URL, EncryptionInfo)]) {
+        var success: [URL] = []
+        var failed: [(URL, EncryptionInfo)] = []
+
+        for file in urls {
+            do {
+                let outputs = try await decrypt(files: [file])
+                success.append(contentsOf: outputs)
+            } catch {
+                do {
+                    let info = try await getEncryptionInfo(for: file)
+                    failed.append((file, info))
+                } catch {
+                    // If we can't even get encryption info, still add a minimal entry
+                    failed.append((file, EncryptionInfo(
+                        recipientKeyIds: [],
+                        signerKeyId: nil,
+                        isCurrentUserRecipient: false,
+                        isSigned: false
+                    )))
+                }
+            }
+        }
+        return (success, failed)
     }
 
     // MARK: - Settings
@@ -193,6 +239,16 @@ final class AppState: ObservableObject {
 
     func key(forFingerprint fp: String) -> GPGKey? {
         publicKeys.first { $0.fingerprint == fp } ?? secretKeys.first { $0.fingerprint == fp }
+    }
+
+    /// Resolves a key ID (from list-packets, often 16-char subkey ID) to a known key.
+    func key(forKeyId keyId: String) -> GPGKey? {
+        let normalized = keyId.uppercased()
+        return (publicKeys + secretKeys).first { key in
+            key.keyId.uppercased() == normalized
+                || (key.fingerprint.count >= 16 && key.fingerprint.suffix(16).uppercased() == normalized)
+                || (key.fingerprint.count >= 8 && key.fingerprint.suffix(8).uppercased() == normalized)
+        }
     }
 
     func recipients(forGroup group: KeyGroup) -> [GPGKey] {

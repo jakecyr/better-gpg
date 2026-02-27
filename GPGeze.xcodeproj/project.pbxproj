@@ -8,18 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		01F73FA9DC19D7CD42355FBE /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A92A12AD391A4F4B052A020 /* GroupDetailView.swift */; };
+		0A7AAA7A64FAD6F2E219A93D /* EncryptionInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738486F2A7D3D342DE689C3 /* EncryptionInfoPanel.swift */; };
 		293E94D81510A6FB3A175326 /* FileDropZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D6ECE1730F11EC7FA65F /* FileDropZone.swift */; };
 		300E9160F2E58C7399D6965E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76A5BF39334443233EE7A5 /* AppState.swift */; };
 		357012BC05DDAAB138CDCCD4 /* EncryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820433030A12F821CA893C8F /* EncryptView.swift */; };
 		3C3E59B8DC995D665A4427BB /* KeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F4759E49C93B55BDCAE80 /* KeysView.swift */; };
+		3EE2BCD4F7AF70625C51906A /* EncryptionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30622CD41FDB3D076931F0C2 /* EncryptionInfo.swift */; };
 		5666D40B7B8BC5ADD55C5E50 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600F108A5B2C53631C7601F /* SettingsView.swift */; };
 		5E50E2D35522B53E192789F0 /* GPGKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870135E061639BA53D9EB1FC /* GPGKey.swift */; };
 		689019EA32828A6F4BA17C62 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61EF6A702AF1027FE6CDEA /* GroupsView.swift */; };
 		7977E3519713796B9EE89B1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5003F54F3E053888B92CFE /* AppDelegate.swift */; };
+		8B16E5D3A963A1CF53E2C522 /* DecryptionFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645350B20066AB052B022C95 /* DecryptionFailedView.swift */; };
 		97F7A6DCE1CA372E80F71FCA /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BBC206B55ED14118DB3A8D /* AppSettings.swift */; };
+		9A615786297606DE4B90A50C /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE09ED1C3A3A66F28A4ADC6 /* FinderSync.swift */; };
 		A99F2F7A4E300B73017DF64F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F260CD83E67932720666BA /* ContentView.swift */; };
 		BFCF1B2BCB8774147CD68FA5 /* GPGezeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937BDD599F213294783B8BDB /* GPGezeApp.swift */; };
 		CD7E5D3BFA7F6172C58F9207 /* GPGService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44D6CD4ACB4BDDE56ECE5E /* GPGService.swift */; };
+		D1553A5AA3CD0C7A1F3248FF /* GPGezeFinderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C8B650DA5D6929E198799689 /* GPGezeFinderExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E58209B9E27C60B4C914F61C /* GPGNotInstalledBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72960B0E11C7824F4B7FB0CB /* GPGNotInstalledBanner.swift */; };
 		E6CDDB720626A77D8D4345A5 /* KeyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCF742416A888DB13894916 /* KeyGroup.swift */; };
 		E94F264D4259F0667B06E9FC /* DecryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34084B998F8815F756CCE8 /* DecryptView.swift */; };
@@ -27,29 +32,74 @@
 		F58973ACEA800635597DCC2D /* ServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413BFA4B88A6A2426770CB3C /* ServiceHandler.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5146B114BDF79ACC63888E99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 315F06206B873BB9A451898B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5A5ADCF1B1117F71D2B331D;
+			remoteInfo = GPGezeFinderExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B25B7BFCF04C568A45DD1992 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D1553A5AA3CD0C7A1F3248FF /* GPGezeFinderExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1A92A12AD391A4F4B052A020 /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
 		1E34084B998F8815F756CCE8 /* DecryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptView.swift; sourceTree = "<group>"; };
+		30622CD41FDB3D076931F0C2 /* EncryptionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfo.swift; sourceTree = "<group>"; };
 		413BFA4B88A6A2426770CB3C /* ServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHandler.swift; sourceTree = "<group>"; };
 		4600F108A5B2C53631C7601F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		551F4759E49C93B55BDCAE80 /* KeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysView.swift; sourceTree = "<group>"; };
 		5CE6D6ECE1730F11EC7FA65F /* FileDropZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropZone.swift; sourceTree = "<group>"; };
 		5E5003F54F3E053888B92CFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		645350B20066AB052B022C95 /* DecryptionFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptionFailedView.swift; sourceTree = "<group>"; };
 		6C44D6CD4ACB4BDDE56ECE5E /* GPGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGService.swift; sourceTree = "<group>"; };
 		6C76A5BF39334443233EE7A5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		6EE09ED1C3A3A66F28A4ADC6 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
 		72960B0E11C7824F4B7FB0CB /* GPGNotInstalledBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGNotInstalledBanner.swift; sourceTree = "<group>"; };
 		820433030A12F821CA893C8F /* EncryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptView.swift; sourceTree = "<group>"; };
 		82BBC206B55ED14118DB3A8D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		870135E061639BA53D9EB1FC /* GPGKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGKey.swift; sourceTree = "<group>"; };
 		93312E39924D73F62DA0ADDC /* ImportKeySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeySheet.swift; sourceTree = "<group>"; };
 		937BDD599F213294783B8BDB /* GPGezeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGezeApp.swift; sourceTree = "<group>"; };
+		9738486F2A7D3D342DE689C3 /* EncryptionInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfoPanel.swift; sourceTree = "<group>"; };
 		A8F260CD83E67932720666BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C8B650DA5D6929E198799689 /* GPGezeFinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GPGezeFinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC61EF6A702AF1027FE6CDEA /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		ECCF742416A888DB13894916 /* KeyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGroup.swift; sourceTree = "<group>"; };
 		FB60B8B79E85B34DF24EB306 /* GPGeze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGeze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		00918A628F00942BA772EC11 /* FinderExtension */ = {
+			isa = PBXGroup;
+			children = (
+				0A4D8B22A213F6C0B74F49AD /* Sources */,
+			);
+			path = FinderExtension;
+			sourceTree = "<group>";
+		};
+		0A4D8B22A213F6C0B74F49AD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				6EE09ED1C3A3A66F28A4ADC6 /* FinderSync.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		0B06F705CDBADF3374798DA5 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				FB60B8B79E85B34DF24EB306 /* GPGeze.app */,
+				C8B650DA5D6929E198799689 /* GPGezeFinderExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +153,7 @@
 		5F8039DBDA5894B781B8DE2C /* GPGeze */ = {
 			isa = PBXGroup;
 			children = (
+				00918A628F00942BA772EC11 /* FinderExtension */,
 				A7FE3FB338F6BB5174F0D5A4 /* Sources */,
 			);
 			path = GPGeze;
@@ -111,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				82BBC206B55ED14118DB3A8D /* AppSettings.swift */,
+				30622CD41FDB3D076931F0C2 /* EncryptionInfo.swift */,
 				870135E061639BA53D9EB1FC /* GPGKey.swift */,
 				ECCF742416A888DB13894916 /* KeyGroup.swift */,
 			);
@@ -159,7 +212,9 @@
 		D8C99959147C4EDAC86EB836 /* Decrypt */ = {
 			isa = PBXGroup;
 			children = (
+				645350B20066AB052B022C95 /* DecryptionFailedView.swift */,
 				1E34084B998F8815F756CCE8 /* DecryptView.swift */,
+				9738486F2A7D3D342DE689C3 /* EncryptionInfoPanel.swift */,
 			);
 			path = Decrypt;
 			sourceTree = "<group>";
@@ -176,15 +231,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A5A5ADCF1B1117F71D2B331D /* GPGezeFinderExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71763D21948F151D73D6E9D5 /* Build configuration list for PBXNativeTarget "GPGezeFinderExtension" */;
+			buildPhases = (
+				40DDDE6964762B0AD2765A0B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GPGezeFinderExtension;
+			packageProductDependencies = (
+			);
+			productName = GPGezeFinderExtension;
+			productReference = C8B650DA5D6929E198799689 /* GPGezeFinderExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		FF844BC998DA53E14AEE7ED2 /* GPGeze */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD5A437370A73A1477DF446E /* Build configuration list for PBXNativeTarget "GPGeze" */;
 			buildPhases = (
 				C0D5992EB4147EA1E25417ED /* Sources */,
+				B25B7BFCF04C568A45DD1992 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4DE82811C2506EBE94C1834D /* PBXTargetDependency */,
 			);
 			name = GPGeze;
 			packageProductDependencies = (
@@ -202,8 +276,13 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					A5A5ADCF1B1117F71D2B331D = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					FF844BC998DA53E14AEE7ED2 = {
 						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -222,11 +301,20 @@
 			projectRoot = "";
 			targets = (
 				FF844BC998DA53E14AEE7ED2 /* GPGeze */,
+				A5A5ADCF1B1117F71D2B331D /* GPGezeFinderExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		40DDDE6964762B0AD2765A0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A615786297606DE4B90A50C /* FinderSync.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0D5992EB4147EA1E25417ED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,7 +324,10 @@
 				300E9160F2E58C7399D6965E /* AppState.swift in Sources */,
 				A99F2F7A4E300B73017DF64F /* ContentView.swift in Sources */,
 				E94F264D4259F0667B06E9FC /* DecryptView.swift in Sources */,
+				8B16E5D3A963A1CF53E2C522 /* DecryptionFailedView.swift in Sources */,
 				357012BC05DDAAB138CDCCD4 /* EncryptView.swift in Sources */,
+				3EE2BCD4F7AF70625C51906A /* EncryptionInfo.swift in Sources */,
+				0A7AAA7A64FAD6F2E219A93D /* EncryptionInfoPanel.swift in Sources */,
 				293E94D81510A6FB3A175326 /* FileDropZone.swift in Sources */,
 				5E50E2D35522B53E192789F0 /* GPGKey.swift in Sources */,
 				E58209B9E27C60B4C914F61C /* GPGNotInstalledBanner.swift in Sources */,
@@ -254,16 +345,22 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4DE82811C2506EBE94C1834D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5A5ADCF1B1117F71D2B331D /* GPGezeFinderExtension */;
+			targetProxy = 5146B114BDF79ACC63888E99 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		0C84948690FEC3B0D88DA16D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GPGeze/GPGeze.entitlements;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = GPGeze/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -282,10 +379,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GPGeze/GPGeze.entitlements;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = GPGeze/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -298,6 +393,27 @@
 				SDKROOT = macosx;
 			};
 			name = Debug;
+		};
+		8A98A81ED5ADB66E018D39FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GPGeze/FinderExtension/GPGezeFinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = GPGeze/FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gpgeze.app.findersync;
+				PRODUCT_NAME = GPGezeFinderExtension;
+				SDKROOT = macosx;
+			};
+			name = Release;
 		};
 		DCD3C5ADB89D906A9F05F5CD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -332,8 +448,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -360,6 +478,27 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		DCFBF824A759E71F2C93887F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GPGeze/FinderExtension/GPGezeFinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = GPGeze/FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gpgeze.app.findersync;
+				PRODUCT_NAME = GPGezeFinderExtension;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -396,8 +535,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -423,6 +564,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		71763D21948F151D73D6E9D5 /* Build configuration list for PBXNativeTarget "GPGezeFinderExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCFBF824A759E71F2C93887F /* Debug */,
+				8A98A81ED5ADB66E018D39FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		7E1306EAF2BA546D1D89DC74 /* Build configuration list for PBXProject "GPGeze" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

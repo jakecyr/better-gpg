@@ -29,7 +29,49 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 
-	<!-- Finder right-click Services registration -->
+	<!-- Document type: open .gpg files with GPGeze (double-click in Finder) -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>GPG Encrypted File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>gpg</string>
+				<string>asc</string>
+			</array>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+		</dict>
+	</array>
+
+	<!-- Custom URL scheme so the FinderSync extension can launch the app and pass
+	     file paths: gpgeze://encrypt?data=<base64json> or gpgeze://decrypt?data=... -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.gpgeze.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gpgeze</string>
+			</array>
+		</dict>
+	</array>
+
+	<!--
+	NSServices registration for Finder right-click.
+
+	Key notes:
+	- NSPortName is intentionally OMITTED. Including it tells macOS to use legacy
+	  Distributed Objects to find the app, which fails silently unless your app
+	  registers a DO listener. Without it, macOS uses the standard service delivery
+	  mechanism (launches the app if needed and calls the method directly).
+	- NSSendTypes includes both the modern "public.file-url" UTI and the legacy
+	  "NSFilenamesPboardType" so services appear in Finder on all macOS versions.
+	-->
 	<key>NSServices</key>
 	<array>
 		<dict>
@@ -42,10 +84,9 @@
 			<string>encryptFiles</string>
 			<key>NSSendTypes</key>
 			<array>
+				<string>public.file-url</string>
 				<string>NSFilenamesPboardType</string>
 			</array>
-			<key>NSPortName</key>
-			<string>GPGeze</string>
 		</dict>
 		<dict>
 			<key>NSMenuItem</key>
@@ -57,10 +98,9 @@
 			<string>decryptFiles</string>
 			<key>NSSendTypes</key>
 			<array>
+				<string>public.file-url</string>
 				<string>NSFilenamesPboardType</string>
 			</array>
-			<key>NSPortName</key>
-			<string>GPGeze</string>
 		</dict>
 	</array>
 </dict>

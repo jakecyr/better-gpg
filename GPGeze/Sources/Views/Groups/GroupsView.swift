@@ -8,9 +8,10 @@ struct GroupsView: View {
     @State private var showRenameAlert = false
     @State private var renameText = ""
     @State private var groupToRename: KeyGroup?
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             List(appState.groups, selection: $selectedGroup) { group in
                 GroupRow(group: group, keyCount: group.keyFingerprints.count)
                     .tag(group)
@@ -46,13 +47,29 @@ struct GroupsView: View {
                 }
             }
             .navigationTitle("Groups")
+            .navigationSplitViewColumnWidth(min: 160, ideal: 200, max: 260)
         } detail: {
-            if let group = selectedGroup, let idx = appState.groups.firstIndex(where: { $0.id == group.id }) {
-                GroupDetailView(group: $appState.groups[idx])
-            } else {
-                ContentUnavailableView("Select a Group", systemImage: "person.3", description: Text("Choose a group from the sidebar to manage its members."))
+            Group {
+                if let group = selectedGroup, let idx = appState.groups.firstIndex(where: { $0.id == group.id }) {
+                    GroupDetailView(group: $appState.groups[idx])
+                } else {
+                    ContentUnavailableView("Select a Group", systemImage: "person.3", description: Text("Choose a group from the sidebar to manage its members."))
+                }
+            }
+            .toolbar {
+                if columnVisibility == .detailOnly {
+                    ToolbarItem(placement: .automatic) {
+                        Button {
+                            columnVisibility = .all
+                        } label: {
+                            Label("Show Groups", systemImage: "sidebar.left")
+                        }
+                        .help("Show groups list")
+                    }
+                }
             }
         }
+        .navigationSplitViewStyle(.prominentDetail)
         .alert("New Group", isPresented: $showNewGroupAlert) {
             TextField("Group name", text: $newGroupName)
             Button("Create") {

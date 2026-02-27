@@ -5,7 +5,7 @@ struct GPGezeApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        WindowGroup {
+        Window("GPGeze", id: "main") {
             ContentView()
                 .environmentObject(appDelegate.appState)
                 .frame(minWidth: 860, minHeight: 560)

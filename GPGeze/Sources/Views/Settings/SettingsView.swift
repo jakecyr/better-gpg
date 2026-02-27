@@ -1,9 +1,11 @@
 import SwiftUI
+import FinderSync
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @State private var settings: AppSettings = AppSettings.load()
     @State private var isSaved = false
+    @State private var extensionEnabled = false
 
     var body: some View {
         Form {
@@ -74,18 +76,46 @@ struct SettingsView: View {
                 Text("Encryption Options")
             }
 
-            // Services
+            // Finder Extension
             Section {
-                HStack(spacing: 8) {
-                    Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
-                    Text("Finder right-click services are active when GPGeze is running.")
-                        .font(.callout)
+                // Status row
+                HStack(spacing: 10) {
+                    Image(systemName: extensionEnabled ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundStyle(extensionEnabled ? .green : .red)
+                        .font(.title3)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(extensionEnabled ? "Finder Extension is enabled" : "Finder Extension is disabled")
+                            .font(.callout.weight(.medium))
+                        Text(extensionEnabled
+                             ? "Right-click any file in Finder — you'll see Encrypt/Decrypt options."
+                             : "Click the button below to enable it. This is a one-time step.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
                 }
-                Text("Right-click any file in Finder → Services → **Encrypt with GPGeze…** or **Decrypt with GPGeze…**")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+
+                // The system sheet button — uses FIFinderSyncController directly
+                Button(extensionEnabled ? "Manage Extension…" : "Enable Finder Extension…") {
+                    // showExtensionManagementInterface() opens the native enable/disable sheet
+                    FIFinderSyncController.showExtensionManagementInterface()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(extensionEnabled ? .secondary : .accentColor)
+
+                if !extensionEnabled {
+                    Text("After clicking Enable, tick the checkbox next to **GPGezeFinderExtension** in the sheet that appears.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             } header: {
-                Text("Finder Integration")
+                Text("Finder Right-Click Integration")
+            } footer: {
+                if extensionEnabled {
+                    Text("Items appear directly in Finder's right-click menu.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .formStyle(.grouped)
@@ -101,7 +131,12 @@ struct SettingsView: View {
         }
         .onAppear {
             settings = appState.settings
+            refreshExtensionStatus()
         }
+    }
+
+    private func refreshExtensionStatus() {
+        extensionEnabled = FIFinderSyncController.isExtensionEnabled
     }
 
     private func saveSettings() {

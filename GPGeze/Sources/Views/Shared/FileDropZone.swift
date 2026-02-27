@@ -4,7 +4,6 @@ import UniformTypeIdentifiers
 struct FileDropZone: View {
     let label: String
     let systemImage: String
-    let allowedTypes: [UTType]
     @Binding var droppedURLs: [URL]
     var onTap: (() -> Void)?
 
@@ -37,32 +36,17 @@ struct FileDropZone: View {
         .frame(height: 140)
         .contentShape(Rectangle())
         .onTapGesture { onTap?() }
-        .onDrop(of: allowedTypes.isEmpty ? [UTType.item] : allowedTypes, isTargeted: $isTargeted) { providers in
-            handleDrop(providers)
-        }
-        .animation(.easeInOut(duration: 0.15), value: isTargeted)
-    }
-
-    private func handleDrop(_ providers: [NSItemProvider]) -> Bool {
-        var loaded: [URL] = []
-        let group = DispatchGroup()
-
-        for provider in providers {
-            group.enter()
-            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { item, _ in
-                defer { group.leave() }
-                if let data = item as? Data,
-                   let url = URL(dataRepresentation: data, relativeTo: nil, isAbsolute: true) {
-                    loaded.append(url)
-                } else if let url = item as? URL {
-                    loaded.append(url)
+        // Use .fileURL drop type so Finder drags are accepted, then load via NSURL
+        // (which conforms to NSItemProviderReading — URL alone does not on macOS)
+        .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
+            for provider in providers {
+                _ = provider.loadObject(ofClass: NSURL.self) { item, _ in
+                    guard let url = item as? URL else { return }
+                    DispatchQueue.main.async { droppedURLs.append(url) }
                 }
             }
+            return true
         }
-
-        group.notify(queue: .main) {
-            droppedURLs.append(contentsOf: loaded)
-        }
-        return true
+        .animation(.easeInOut(duration: 0.15), value: isTargeted)
     }
 }

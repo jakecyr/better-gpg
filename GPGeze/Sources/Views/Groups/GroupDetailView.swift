@@ -23,6 +23,14 @@ struct GroupDetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            // Explicit header so title stays in detail panel (navigationTitle can appear in wrong column when nested)
+            Text(group.name)
+                .font(.title2.bold())
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
+
             List {
                 if filteredGroupKeys.isEmpty && searchText.isEmpty {
                     ContentUnavailableView {
@@ -69,7 +77,6 @@ struct GroupDetailView: View {
             }
             .padding(12)
         }
-        .navigationTitle(group.name)
         .sheet(isPresented: $showAddKeySheet) {
             AddKeysToGroupSheet(group: $group)
         }

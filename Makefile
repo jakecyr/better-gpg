@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: generate build-dev build-prod run run-dev run-prod clean help
+.PHONY: generate build-dev build-prod run run-dev run-prod install install-services clean help
 
 SCHEME := GPGeze
 CONFIG_DEV := Debug
@@ -32,6 +32,19 @@ run-dev: dev
 run-prod: prod
 	open $(PROD_APP)
 
+# Copy prod app to /Applications and refresh Finder services
+install: prod
+	rm -rf /Applications/GPGeze.app
+	cp -R $(PROD_APP) /Applications/GPGeze.app
+	@echo "Refreshing macOS services registration…"
+	/System/Library/CoreServices/pbs -update
+	@echo "Done. Open GPGeze from /Applications — services will appear in Finder right-click."
+
+# Refresh Finder services without reinstalling (run after first launch too)
+install-services:
+	/System/Library/CoreServices/pbs -update
+	@echo "Services refreshed. You may need to re-launch Finder (killall Finder)."
+
 # Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
@@ -49,5 +62,7 @@ help:
 	@echo "  make run         - Build dev and run the app"
 	@echo "  make run-dev     - Same as run"
 	@echo "  make run-prod    - Build prod and run the app"
-	@echo "  make clean       - Remove build artifacts and generated project"
-	@echo "  make help        - Show this help"
+	@echo "  make install          - Build prod, copy to /Applications, refresh services"
+	@echo "  make install-services - Refresh Finder services registration only"
+	@echo "  make clean            - Remove build artifacts and generated project"
+	@echo "  make help             - Show this help"

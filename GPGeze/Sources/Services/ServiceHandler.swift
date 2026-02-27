@@ -1,18 +1,22 @@
 import AppKit
 
-/// Handles macOS Services (right-click in Finder) for encrypt/decrypt.
-/// The methods here are called when the user selects "Encrypt with GPGeze" or
-/// "Decrypt with GPGeze" from Finder's right-click > Services menu.
+/// Handles macOS Services (right-click in Finder → Services → "Encrypt/Decrypt with GPGeze…").
+///
+/// The NSMessage keys in Info.plist map to the @objc selectors below.
+/// NSPortName is NOT set in the plist — without it macOS uses the standard delivery
+/// mechanism rather than legacy Distributed Objects (which caused silent failures).
 @objc
 final class ServiceHandler: NSObject {
     private let appState: AppState
+    private weak var appDelegate: AppDelegate?
 
-    init(appState: AppState) {
+    init(appState: AppState, appDelegate: AppDelegate) {
         self.appState = appState
+        self.appDelegate = appDelegate
     }
 
-    // MARK: - Service handlers
-    // These selectors must match the NSMessage values in Info.plist.
+    // MARK: - NSServices entry points
+    // Selector: encryptFiles:userData:error:  (matches NSMessage "encryptFiles")
 
     @objc func encryptFiles(
         _ pboard: NSPasteboard,
@@ -21,14 +25,14 @@ final class ServiceHandler: NSObject {
     ) {
         let urls = fileURLs(from: pboard)
         guard !urls.isEmpty else { return }
-
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.appState.pendingEncryptURLs = urls
-            self.appState.activeTab = .encrypt
-            self.activateApp()
+            self?.appState.pendingEncryptURLs = urls
+            self?.appState.activeTab = .encrypt
+            Self.bringToFront()
         }
     }
+
+    // Selector: decryptFiles:userData:error:  (matches NSMessage "decryptFiles")
 
     @objc func decryptFiles(
         _ pboard: NSPasteboard,
@@ -37,37 +41,39 @@ final class ServiceHandler: NSObject {
     ) {
         let urls = fileURLs(from: pboard)
         guard !urls.isEmpty else { return }
-
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.appState.pendingDecryptURLs = urls
-            self.appState.activeTab = .decrypt
-            self.activateApp()
+            guard let self, let delegate = self.appDelegate else { return }
+            Task { @MainActor in
+                await delegate.handleBackgroundDecrypt(urls)
+            }
         }
     }
 
     // MARK: - Helpers
 
     private func fileURLs(from pboard: NSPasteboard) -> [URL] {
-        // Modern API
+        // Modern: public.file-url items (macOS 10.14+)
         if let urls = pboard.readObjects(forClasses: [NSURL.self],
-                                          options: [.urlReadingFileURLsOnly: true]) as? [URL], !urls.isEmpty {
+                                          options: [.urlReadingFileURLsOnly: true]) as? [URL],
+           !urls.isEmpty {
             return urls
         }
-        // Legacy NSFilenamesPboardType
-        if let names = pboard.propertyList(forType: NSPasteboard.PasteboardType("NSFilenamesPboardType")) as? [String] {
-            return names.map { URL(fileURLWithPath: $0) }
+        // Legacy: NSFilenamesPboardType (array of paths)
+        if let paths = pboard.propertyList(
+            forType: NSPasteboard.PasteboardType("NSFilenamesPboardType")
+        ) as? [String] {
+            return paths.map { URL(fileURLWithPath: $0) }
         }
         return []
     }
 
-    private func activateApp() {
+    private static func bringToFront() {
         NSApp.activate(ignoringOtherApps: true)
-        if NSApp.windows.isEmpty || NSApp.windows.allSatisfy({ !$0.isVisible }) {
-            // Re-open the main window if it was closed
-            for window in NSApp.windows {
-                window.makeKeyAndOrderFront(nil)
-            }
+        // Make the first non-miniaturized window key, or restore all windows
+        if let window = NSApp.windows.first(where: { $0.isVisible && !$0.isMiniaturized }) {
+            window.makeKeyAndOrderFront(nil)
+        } else {
+            NSApp.windows.forEach { $0.makeKeyAndOrderFront(nil) }
         }
     }
 }

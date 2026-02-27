@@ -1,5 +1,4 @@
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct DecryptView: View {
     @EnvironmentObject var appState: AppState
@@ -7,6 +6,9 @@ struct DecryptView: View {
     @State private var isDecrypting = false
     @State private var resultURLs: [URL] = []
     @State private var errorMessage: String?
+    @State private var selectedFileURL: URL?
+    @State private var encryptionInfo: EncryptionInfo?
+    @State private var isLoadingInfo = false
 
     var body: some View {
         ScrollView {
@@ -22,7 +24,6 @@ struct DecryptView: View {
                     FileDropZone(
                         label: "Drop .gpg files here or click to choose",
                         systemImage: "lock.circle.dotted",
-                        allowedTypes: [UTType.item],
                         droppedURLs: $files
                     ) {
                         chooseFiles()
@@ -81,32 +82,29 @@ struct DecryptView: View {
                 }
             }
         }
-        .onAppear {
-            if !appState.pendingDecryptURLs.isEmpty {
-                files = appState.pendingDecryptURLs
-                appState.pendingDecryptURLs = []
-            }
-        }
-        .onChange(of: appState.pendingDecryptURLs) { _, urls in
-            if !urls.isEmpty {
-                files = urls
-                appState.pendingDecryptURLs = []
-                resultURLs = []
-                errorMessage = nil
-            }
-        }
     }
 
     private var fileList: some View {
         VStack(spacing: 2) {
             ForEach(files, id: \.absoluteString) { url in
                 HStack {
-                    Image(systemName: "lock.doc")
-                        .foregroundStyle(.secondary)
-                        .frame(width: 20)
-                    Text(url.lastPathComponent)
-                        .lineLimit(1)
-                    Spacer()
+                    Button {
+                        showEncryptionInfo(for: url)
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "lock.doc")
+                                .foregroundStyle(.secondary)
+                                .frame(width: 20)
+                            Text(url.lastPathComponent)
+                                .lineLimit(1)
+                                .foregroundStyle(.primary)
+                            Image(systemName: "info.circle")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .buttonStyle(.plain)
                     Button {
                         files.removeAll { $0 == url }
                     } label: {
@@ -117,6 +115,46 @@ struct DecryptView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
+            }
+        }
+        .sheet(isPresented: Binding(
+            get: { selectedFileURL != nil },
+            set: { if !$0 { selectedFileURL = nil; encryptionInfo = nil } }
+        )) {
+            if let url = selectedFileURL {
+                if let info = encryptionInfo {
+                    EncryptionInfoPanel(fileURL: url, info: info, appState: appState)
+                } else if isLoadingInfo {
+                    VStack(spacing: 16) {
+                        ProgressView()
+                        Text("Reading encryption info…")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(minWidth: 300, minHeight: 150)
+                }
+            }
+        }
+    }
+
+    private func showEncryptionInfo(for url: URL) {
+        selectedFileURL = url
+        encryptionInfo = nil
+        isLoadingInfo = true
+        Task {
+            do {
+                let info = try await appState.getEncryptionInfo(for: url)
+                await MainActor.run {
+                    encryptionInfo = info
+                    isLoadingInfo = false
+                }
+            } catch {
+                await MainActor.run {
+                    errorMessage = "Could not read file: \(error.localizedDescription)"
+                    selectedFileURL = nil
+                    encryptionInfo = nil
+                    isLoadingInfo = false
+                }
             }
         }
     }
@@ -154,20 +192,30 @@ struct DecryptView: View {
         }
     }
 
-    private func performDecrypt() {
+    private func performDecrypt(revealAfter: Bool = false) {
         isDecrypting = true
         errorMessage = nil
         resultURLs = []
+        let filesToDecrypt = files
 
         Task {
             do {
-                let outputs = try await appState.decrypt(files: files)
-                resultURLs = outputs
-                files = []
+                let outputs = try await appState.decrypt(files: filesToDecrypt)
+                await MainActor.run {
+                    resultURLs = outputs
+                    files = []
+                    if revealAfter, !outputs.isEmpty {
+                        NSWorkspace.shared.activateFileViewerSelecting(outputs)
+                    }
+                }
             } catch {
-                errorMessage = error.localizedDescription
+                await MainActor.run {
+                    errorMessage = error.localizedDescription
+                }
             }
-            isDecrypting = false
+            await MainActor.run {
+                isDecrypting = false
+            }
         }
     }
 }

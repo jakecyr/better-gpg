@@ -196,4 +196,60 @@ final class GPGService: Sendable {
     func decrypt(fileURL: URL, outputURL: URL) async throws {
         _ = try await run(["--batch", "--yes", "--output", outputURL.path, "--decrypt", fileURL.path])
     }
+
+    // MARK: - Inspect encrypted file (no decryption)
+
+    /// Lists encryption metadata from a .gpg file without decrypting.
+    /// Uses `--list-packets` and `--list-only` to avoid passphrase prompts.
+    func listEncryptionInfo(fileURL: URL) async throws -> (recipientKeyIds: [String], signerKeyId: String?) {
+        let output = try await run([
+            "--list-packets",
+            "--list-only",
+            "--pinentry-mode", "cancel",
+            fileURL.path
+        ])
+        return parseListPacketsOutput(output)
+    }
+
+    /// Returns true if the current user has a secret key that can decrypt the given key ID.
+    func hasSecretKey(keyId: String) async -> Bool {
+        guard !keyId.isEmpty else { return false }
+        let normalized = keyId.hasPrefix("0x") ? keyId : "0x\(keyId)"
+        do {
+            _ = try await run(["--batch", "--list-secret-keys", normalized])
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    private func parseListPacketsOutput(_ output: String) -> (recipientKeyIds: [String], signerKeyId: String?) {
+        var recipientKeyIds: [String] = []
+        var signerKeyId: String?
+
+        for line in output.components(separatedBy: "\n") {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            if trimmed.hasPrefix(":pubkey enc packet:") {
+                if let keyId = extractKeyId(from: trimmed) {
+                    recipientKeyIds.append(keyId)
+                }
+            } else if trimmed.hasPrefix(":signature packet:") || trimmed.hasPrefix(":onepass_sig packet:") {
+                if signerKeyId == nil, let keyId = extractKeyId(from: trimmed) {
+                    signerKeyId = keyId
+                }
+            }
+        }
+        return (recipientKeyIds, signerKeyId)
+    }
+
+    private func extractKeyId(from line: String) -> String? {
+        // Match "keyid XXXXXXXX" or "keyid XXXXXXXXXXXXXXXX" (8 or 16 hex chars)
+        let keyIdPattern = #"keyid\s+([0-9A-Fa-f]{8,16})"#
+        guard let regex = try? NSRegularExpression(pattern: keyIdPattern),
+              let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)),
+              let range = Range(match.range(at: 1), in: line) else {
+            return nil
+        }
+        return String(line[range])
+    }
 }
