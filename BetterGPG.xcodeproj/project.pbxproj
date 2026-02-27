@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F122502097D90F52D6A6400 /* GPGKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */; };
+		2D98621506542E781470426C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28D1177A224C858AFAE1259 /* Assets.xcassets */; };
 		323EB0F76A088DB7D9EF3903 /* KeyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */; };
 		38512E6B832EC9E8DE521344 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B367F5D20F02FE7168F298DB /* GroupsView.swift */; };
 		4ECC5EE1CC5692B6B2697CCF /* BetterGPGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */; };
@@ -75,6 +76,7 @@
 		AED41B1FB6CCA274454CA9CA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B367F5D20F02FE7168F298DB /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
 		BB6DFC7C6374066CD967F3E3 /* KeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysView.swift; sourceTree = "<group>"; };
+		C28D1177A224C858AFAE1259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1EE09F54F1C43A2439A8D0A /* GPGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGService.swift; sourceTree = "<group>"; };
 		D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptView.swift; sourceTree = "<group>"; };
 		E05F91EC4DEB353758896A6F /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
@@ -123,6 +125,14 @@
 				66AB1783DA2F3C6D563B7CAC /* Shared */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		54E0AF8FA25EAE84145A6F46 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C28D1177A224C858AFAE1259 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		66AB1783DA2F3C6D563B7CAC /* Shared */ = {
@@ -179,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				E7096EFF938D8DF569367768 /* FinderExtension */,
+				54E0AF8FA25EAE84145A6F46 /* Resources */,
 				AA2DDAE661F5188881806818 /* Sources */,
 			);
 			path = BetterGPG;
@@ -253,6 +264,7 @@
 			buildConfigurationList = 253CB7BE006D31401A0FE0D9 /* Build configuration list for PBXNativeTarget "BetterGPG" */;
 			buildPhases = (
 				7592A1FDEB177E8AA913549D /* Sources */,
+				B8E01073473C6DABEA4448FF /* Resources */,
 				03CEDBE1123B589F1A5E2DF3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -305,6 +317,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8E01073473C6DABEA4448FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D98621506542E781470426C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		392D65402B99A28C81D21FA1 /* Sources */ = {

@@ -25,6 +25,10 @@ targets:
     platform: macOS
     sources:
       - BetterGPG/Sources
+      - path: BetterGPG/Resources
+        type: group
+        excludes:
+          - "Info.plist"
     resources:
       - BetterGPG/Resources/Assets.xcassets
     dependencies:

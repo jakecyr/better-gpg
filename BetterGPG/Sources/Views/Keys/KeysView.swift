@@ -18,6 +18,15 @@ struct KeysView: View {
         }
     }
 
+    private var filteredSecretKeys: [GPGKey] {
+        let base = appState.secretKeys.filter { !$0.fingerprint.isEmpty }
+        guard !searchText.isEmpty else { return base }
+        return base.filter {
+            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
+            $0.fingerprint.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             if !appState.gpgAvailable {
@@ -40,10 +49,9 @@ struct KeysView: View {
                 }
 
                 let secretFps = Set(appState.secretKeys.map(\.fingerprint))
-                let ownSecretKeys = appState.secretKeys.filter { !$0.fingerprint.isEmpty }
-                if !ownSecretKeys.isEmpty {
-                    Section("Secret Keys (\(ownSecretKeys.count))") {
-                        ForEach(ownSecretKeys) { key in
+                if !filteredSecretKeys.isEmpty {
+                    Section("Secret Keys (\(filteredSecretKeys.count))") {
+                        ForEach(filteredSecretKeys) { key in
                             KeyRow(key: key, isOwn: true, isSecret: true)
                                 .tag(key)
                                 .contextMenu {
@@ -56,11 +64,13 @@ struct KeysView: View {
                     let _ = secretFps // suppress warning
                 }
 
-                if filteredPublicKeys.isEmpty && appState.secretKeys.isEmpty && !appState.isLoadingKeys {
+                if filteredPublicKeys.isEmpty && filteredSecretKeys.isEmpty && !appState.isLoadingKeys {
                     ContentUnavailableView {
-                        Label("No Keys Found", systemImage: "person.text.rectangle")
+                        Label(searchText.isEmpty ? "No Keys Found" : "No Matching Keys", systemImage: "person.text.rectangle")
                     } description: {
-                        Text("Import keys using the + button above, or have your contacts share their public keys.")
+                        Text(searchText.isEmpty
+                             ? "Import keys using the + button above, or have your contacts share their public keys."
+                             : "No public or secret keys match your search.")
                     }
                 }
             }
