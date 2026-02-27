@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01F73FA9DC19D7CD42355FBE /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A92A12AD391A4F4B052A020 /* GroupDetailView.swift */; };
+		293E94D81510A6FB3A175326 /* FileDropZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE6D6ECE1730F11EC7FA65F /* FileDropZone.swift */; };
+		300E9160F2E58C7399D6965E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C76A5BF39334443233EE7A5 /* AppState.swift */; };
+		357012BC05DDAAB138CDCCD4 /* EncryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820433030A12F821CA893C8F /* EncryptView.swift */; };
+		3C3E59B8DC995D665A4427BB /* KeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551F4759E49C93B55BDCAE80 /* KeysView.swift */; };
+		5666D40B7B8BC5ADD55C5E50 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600F108A5B2C53631C7601F /* SettingsView.swift */; };
+		5E50E2D35522B53E192789F0 /* GPGKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870135E061639BA53D9EB1FC /* GPGKey.swift */; };
+		689019EA32828A6F4BA17C62 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC61EF6A702AF1027FE6CDEA /* GroupsView.swift */; };
+		7977E3519713796B9EE89B1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5003F54F3E053888B92CFE /* AppDelegate.swift */; };
+		97F7A6DCE1CA372E80F71FCA /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BBC206B55ED14118DB3A8D /* AppSettings.swift */; };
+		A99F2F7A4E300B73017DF64F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F260CD83E67932720666BA /* ContentView.swift */; };
+		BFCF1B2BCB8774147CD68FA5 /* GPGezeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937BDD599F213294783B8BDB /* GPGezeApp.swift */; };
+		CD7E5D3BFA7F6172C58F9207 /* GPGService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44D6CD4ACB4BDDE56ECE5E /* GPGService.swift */; };
+		E58209B9E27C60B4C914F61C /* GPGNotInstalledBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72960B0E11C7824F4B7FB0CB /* GPGNotInstalledBanner.swift */; };
+		E6CDDB720626A77D8D4345A5 /* KeyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCF742416A888DB13894916 /* KeyGroup.swift */; };
+		E94F264D4259F0667B06E9FC /* DecryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E34084B998F8815F756CCE8 /* DecryptView.swift */; };
+		EE3121171FE8C95042724966 /* ImportKeySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93312E39924D73F62DA0ADDC /* ImportKeySheet.swift */; };
+		F58973ACEA800635597DCC2D /* ServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413BFA4B88A6A2426770CB3C /* ServiceHandler.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1A92A12AD391A4F4B052A020 /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
+		1E34084B998F8815F756CCE8 /* DecryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptView.swift; sourceTree = "<group>"; };
+		413BFA4B88A6A2426770CB3C /* ServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHandler.swift; sourceTree = "<group>"; };
+		4600F108A5B2C53631C7601F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		551F4759E49C93B55BDCAE80 /* KeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysView.swift; sourceTree = "<group>"; };
+		5CE6D6ECE1730F11EC7FA65F /* FileDropZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropZone.swift; sourceTree = "<group>"; };
+		5E5003F54F3E053888B92CFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6C44D6CD4ACB4BDDE56ECE5E /* GPGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGService.swift; sourceTree = "<group>"; };
+		6C76A5BF39334443233EE7A5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		72960B0E11C7824F4B7FB0CB /* GPGNotInstalledBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGNotInstalledBanner.swift; sourceTree = "<group>"; };
+		820433030A12F821CA893C8F /* EncryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptView.swift; sourceTree = "<group>"; };
+		82BBC206B55ED14118DB3A8D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		870135E061639BA53D9EB1FC /* GPGKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGKey.swift; sourceTree = "<group>"; };
+		93312E39924D73F62DA0ADDC /* ImportKeySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeySheet.swift; sourceTree = "<group>"; };
+		937BDD599F213294783B8BDB /* GPGezeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGezeApp.swift; sourceTree = "<group>"; };
+		A8F260CD83E67932720666BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CC61EF6A702AF1027FE6CDEA /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		ECCF742416A888DB13894916 /* KeyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGroup.swift; sourceTree = "<group>"; };
+		FB60B8B79E85B34DF24EB306 /* GPGeze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGeze.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0B06F705CDBADF3374798DA5 = {
+			isa = PBXGroup;
+			children = (
+				5F8039DBDA5894B781B8DE2C /* GPGeze */,
+				373C80F756BFE3A3CBAF94AA /* Products */,
+			);
+			indentWidth = 4;
+			sourceTree = "<group>";
+			tabWidth = 4;
+		};
+		0DCDBB37A4E68FD32D1B30DA /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				93312E39924D73F62DA0ADDC /* ImportKeySheet.swift */,
+				551F4759E49C93B55BDCAE80 /* KeysView.swift */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
+		373C80F756BFE3A3CBAF94AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB60B8B79E85B34DF24EB306 /* GPGeze.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5196045827F02F0B1687B79A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A8F260CD83E67932720666BA /* ContentView.swift */,
+				D8C99959147C4EDAC86EB836 /* Decrypt */,
+				892733C2E807A9D02E74B5C4 /* Encrypt */,
+				C49319BCDA57C95B9D357BD9 /* Groups */,
+				0DCDBB37A4E68FD32D1B30DA /* Keys */,
+				5953DE5F90E6EC0F8E38955C /* Settings */,
+				E4F46B322B934284B7C20C7C /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5953DE5F90E6EC0F8E38955C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4600F108A5B2C53631C7601F /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5F8039DBDA5894B781B8DE2C /* GPGeze */ = {
+			isa = PBXGroup;
+			children = (
+				A7FE3FB338F6BB5174F0D5A4 /* Sources */,
+			);
+			path = GPGeze;
+			sourceTree = "<group>";
+		};
+		6B2AD71D7FBB27CD9ED31360 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				82BBC206B55ED14118DB3A8D /* AppSettings.swift */,
+				870135E061639BA53D9EB1FC /* GPGKey.swift */,
+				ECCF742416A888DB13894916 /* KeyGroup.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		892733C2E807A9D02E74B5C4 /* Encrypt */ = {
+			isa = PBXGroup;
+			children = (
+				820433030A12F821CA893C8F /* EncryptView.swift */,
+			);
+			path = Encrypt;
+			sourceTree = "<group>";
+		};
+		A7FE3FB338F6BB5174F0D5A4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5E5003F54F3E053888B92CFE /* AppDelegate.swift */,
+				6C76A5BF39334443233EE7A5 /* AppState.swift */,
+				937BDD599F213294783B8BDB /* GPGezeApp.swift */,
+				6B2AD71D7FBB27CD9ED31360 /* Models */,
+				BB96E0BD7A680E35B715153E /* Services */,
+				5196045827F02F0B1687B79A /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BB96E0BD7A680E35B715153E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6C44D6CD4ACB4BDDE56ECE5E /* GPGService.swift */,
+				413BFA4B88A6A2426770CB3C /* ServiceHandler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C49319BCDA57C95B9D357BD9 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				1A92A12AD391A4F4B052A020 /* GroupDetailView.swift */,
+				CC61EF6A702AF1027FE6CDEA /* GroupsView.swift */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
+		D8C99959147C4EDAC86EB836 /* Decrypt */ = {
+			isa = PBXGroup;
+			children = (
+				1E34084B998F8815F756CCE8 /* DecryptView.swift */,
+			);
+			path = Decrypt;
+			sourceTree = "<group>";
+		};
+		E4F46B322B934284B7C20C7C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				5CE6D6ECE1730F11EC7FA65F /* FileDropZone.swift */,
+				72960B0E11C7824F4B7FB0CB /* GPGNotInstalledBanner.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FF844BC998DA53E14AEE7ED2 /* GPGeze */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD5A437370A73A1477DF446E /* Build configuration list for PBXNativeTarget "GPGeze" */;
+			buildPhases = (
+				C0D5992EB4147EA1E25417ED /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GPGeze;
+			packageProductDependencies = (
+			);
+			productName = GPGeze;
+			productReference = FB60B8B79E85B34DF24EB306 /* GPGeze.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		315F06206B873BB9A451898B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					FF844BC998DA53E14AEE7ED2 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 7E1306EAF2BA546D1D89DC74 /* Build configuration list for PBXProject "GPGeze" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0B06F705CDBADF3374798DA5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF844BC998DA53E14AEE7ED2 /* GPGeze */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0D5992EB4147EA1E25417ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7977E3519713796B9EE89B1A /* AppDelegate.swift in Sources */,
+				97F7A6DCE1CA372E80F71FCA /* AppSettings.swift in Sources */,
+				300E9160F2E58C7399D6965E /* AppState.swift in Sources */,
+				A99F2F7A4E300B73017DF64F /* ContentView.swift in Sources */,
+				E94F264D4259F0667B06E9FC /* DecryptView.swift in Sources */,
+				357012BC05DDAAB138CDCCD4 /* EncryptView.swift in Sources */,
+				293E94D81510A6FB3A175326 /* FileDropZone.swift in Sources */,
+				5E50E2D35522B53E192789F0 /* GPGKey.swift in Sources */,
+				E58209B9E27C60B4C914F61C /* GPGNotInstalledBanner.swift in Sources */,
+				CD7E5D3BFA7F6172C58F9207 /* GPGService.swift in Sources */,
+				BFCF1B2BCB8774147CD68FA5 /* GPGezeApp.swift in Sources */,
+				01F73FA9DC19D7CD42355FBE /* GroupDetailView.swift in Sources */,
+				689019EA32828A6F4BA17C62 /* GroupsView.swift in Sources */,
+				EE3121171FE8C95042724966 /* ImportKeySheet.swift in Sources */,
+				E6CDDB720626A77D8D4345A5 /* KeyGroup.swift in Sources */,
+				3C3E59B8DC995D665A4427BB /* KeysView.swift in Sources */,
+				F58973ACEA800635597DCC2D /* ServiceHandler.swift in Sources */,
+				5666D40B7B8BC5ADD55C5E50 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0C84948690FEC3B0D88DA16D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GPGeze/GPGeze.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GPGeze/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gpgeze.app;
+				PRODUCT_NAME = GPGeze;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		36306695118122702D1AB2A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GPGeze/GPGeze.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GPGeze/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gpgeze.app;
+				PRODUCT_NAME = GPGeze;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DCD3C5ADB89D906A9F05F5CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		EB5B31C08953DDC50077851A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E1306EAF2BA546D1D89DC74 /* Build configuration list for PBXProject "GPGeze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCD3C5ADB89D906A9F05F5CD /* Debug */,
+				EB5B31C08953DDC50077851A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BD5A437370A73A1477DF446E /* Build configuration list for PBXNativeTarget "GPGeze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36306695118122702D1AB2A7 /* Debug */,
+				0C84948690FEC3B0D88DA16D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 315F06206B873BB9A451898B /* Project object */;
+}
