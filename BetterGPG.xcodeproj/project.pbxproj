@@ -7,30 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07062054679EB79599D51C30 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569573A193EA4B961FFB6CE7 /* Shell.swift */; };
+		0B8F3267E61BCDF29E9600EC /* VaultNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA140A3B135615234C2B071 /* VaultNote.swift */; };
 		0F122502097D90F52D6A6400 /* GPGKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */; };
+		0FE493752ABBF2375704FE0D /* MarkdownPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864988A0DC7F2D9A4B16180C /* MarkdownPreview.swift */; };
+		15096EEE60F4E864FC4FB2BE /* VaultStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E7B6BEB88DBDE3DD6DA074 /* VaultStore.swift */; };
+		1D236BD388AA8D1890FB6F1D /* ViewerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739563D1A67E2CB528C407E5 /* ViewerWindow.swift */; };
+		1D2DABC9A65B95493BC3FD61 /* RamDiskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7FBF71CB819461CBF1514 /* RamDiskManager.swift */; };
+		26C70E104681C505DC49A870 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3A0D245C8BB4B5897FADF0 /* SessionManager.swift */; };
+		2C4BF51E8E3B3139428B9BE9 /* FileAccessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF978F951787B896E18CC87 /* FileAccessMonitor.swift */; };
 		2D98621506542E781470426C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28D1177A224C858AFAE1259 /* Assets.xcassets */; };
 		323EB0F76A088DB7D9EF3903 /* KeyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */; };
 		38512E6B832EC9E8DE521344 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B367F5D20F02FE7168F298DB /* GroupsView.swift */; };
+		39BFDB08EDA3BD7BE880AAD8 /* VaultEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B5FFC73D0266E64D9101DA /* VaultEditorView.swift */; };
+		45D02A8E57E73A47D6E084C0 /* DropReviewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A185298E7DD859816F5A90 /* DropReviewSheet.swift */; };
+		46F899C011D229731CD3F88A /* PlaintextVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6E708457C7FC0CD2CF01CD /* PlaintextVault.swift */; };
 		4ECC5EE1CC5692B6B2697CCF /* BetterGPGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */; };
 		505ACC8D71B4F134CDC65B71 /* KeysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6DFC7C6374066CD967F3E3 /* KeysView.swift */; };
 		521526B78A66E43F2D4D7557 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05F91EC4DEB353758896A6F /* FinderSync.swift */; };
-		567521F896C6A993466C9D3D /* EncryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F44F100474139023D27CA8 /* EncryptView.swift */; };
+		548D454FA3DD33775D734F8A /* DecryptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066C045A1A9B20166CD20F01 /* DecryptSheet.swift */; };
+		55ED8AF52CCF9C232AD85F98 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57042272583BB533BF441A /* SearchField.swift */; };
+		56401294AF685CF5C023BFF1 /* ViewerDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052250333E564820AB0F93B7 /* ViewerDocument.swift */; };
+		5787FBAC529DB8790DD2922C /* EncryptSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BC5771D58D78CEEE8B1852 /* EncryptSheet.swift */; };
 		59CF1C149D50BD10FFB22CB9 /* ServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */; };
+		5EA2D1F6269F6E616E6165F8 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F7EDA1052719EB8726D90 /* DocumentStore.swift */; };
 		6402CD2BE8FC49E9970EE127 /* GPGNotInstalledBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */; };
-		724F419C565611FEE3ED7D50 /* DecryptionFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */; };
+		6A75D47281A5056E32E542F4 /* PlaintextSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE7D88EE49F85B2FD1B32 /* PlaintextSession.swift */; };
+		6DAC3F4C98AA6B7367F7F7AA /* SystemDialogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA10AC55A1FAFF5492AAB6 /* SystemDialogs.swift */; };
 		76D0E433564F08A07504CBBF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED41B1FB6CCA274454CA9CA /* AppState.swift */; };
-		7DB7469075BD5584F656CF9F /* DecryptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */; };
+		7E70AE8021B7F66F831DE1C2 /* SecureBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A144DE85C5D930AAD809E95 /* SecureBuffer.swift */; };
 		7F5BBE9BE68BC00CED02491F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B72E58F5B33171622C300F /* SettingsView.swift */; };
 		810AE46122E4C0279739754F /* EncryptionInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */; };
+		A10D5DE469EEC258F3355E1F /* GenerateKeySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8441F992ED7D566D7020189 /* GenerateKeySheet.swift */; };
 		A2BDE4C2854A21FFDB77DA77 /* GPGService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EE09F54F1C43A2439A8D0A /* GPGService.swift */; };
+		AF2731B353C2CE9083D12339 /* SessionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3327B8BA485184691221167 /* SessionsView.swift */; };
+		AF31D42C1ECA17B12EBC3B16 /* ViewerContentViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B16EAAC61E5958392CED14 /* ViewerContentViews.swift */; };
 		B1FEFA06016B616B92C6173D /* FileDropZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */; };
+		B424E0E808123A4B7BCECEE8 /* SecureWiper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7431549B0EAECBA9AFE6EDE /* SecureWiper.swift */; };
 		BCBEEB6E0F433D406EE5AC93 /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C257D0377D8727B50E134B /* GroupDetailView.swift */; };
+		C656EC4721AE27A786C4FBA3 /* PinentrySetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB18EBC427A7637826EB7D5 /* PinentrySetup.swift */; };
+		CF33C412F2D009CAC4D6A759 /* VaultSidebarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4354AB9FAFB973F6EDA5E94 /* VaultSidebarSection.swift */; };
+		D03C5D8F5A1C408FABE6704D /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A965C200739580478A2B902E /* FileInfo.swift */; };
 		DAEFAC99C55C90F77B4C3A5D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2E46028030AEA7A38C27DE /* AppSettings.swift */; };
 		DBA8876FAD460C2E3D1F7FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64FFF91A73899BE9616746E /* AppDelegate.swift */; };
 		E7BC007AE23E9A07D11EF5EF /* BetterGPGFinderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4F68083A9AE2DF57AC0B172 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BCF092311FC9BDF491E24 /* ContentView.swift */; };
 		F5C4C556611335516104312B /* EncryptionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */; };
 		F69E3E1578E5E6A750EE7CE2 /* ImportKeySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */; };
+		F6E05FD01077B58EA20563A0 /* Zipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6AEC8779FECA263E8360E2 /* Zipper.swift */; };
+		F7E4F087E5A33DCD3008F999 /* WindowAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82346838A2911D366169F9E4 /* WindowAccessor.swift */; };
+		F9E0D54B68EDD423F4E06951 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698EE870D6BEF0D94332F4AF /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,41 +84,88 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		052250333E564820AB0F93B7 /* ViewerDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerDocument.swift; sourceTree = "<group>"; };
+		056F7EDA1052719EB8726D90 /* DocumentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
+		066C045A1A9B20166CD20F01 /* DecryptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptSheet.swift; sourceTree = "<group>"; };
+		06B5FFC73D0266E64D9101DA /* VaultEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultEditorView.swift; sourceTree = "<group>"; };
 		08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGKey.swift; sourceTree = "<group>"; };
 		10C257D0377D8727B50E134B /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
 		1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfoPanel.swift; sourceTree = "<group>"; };
+		24FA10AC55A1FAFF5492AAB6 /* SystemDialogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDialogs.swift; sourceTree = "<group>"; };
+		28E7B6BEB88DBDE3DD6DA074 /* VaultStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultStore.swift; sourceTree = "<group>"; };
+		2DF978F951787B896E18CC87 /* FileAccessMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileAccessMonitor.swift; sourceTree = "<group>"; };
 		351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHandler.swift; sourceTree = "<group>"; };
+		3D8AE7D88EE49F85B2FD1B32 /* PlaintextSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaintextSession.swift; sourceTree = "<group>"; };
 		4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGroup.swift; sourceTree = "<group>"; };
+		4F6E708457C7FC0CD2CF01CD /* PlaintextVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaintextVault.swift; sourceTree = "<group>"; };
+		569573A193EA4B961FFB6CE7 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		698EE870D6BEF0D94332F4AF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		6BB18EBC427A7637826EB7D5 /* PinentrySetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinentrySetup.swift; sourceTree = "<group>"; };
 		6DB375BDBBD5633DD9C927DB /* BetterGPGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterGPGApp.swift; sourceTree = "<group>"; };
 		71B72E58F5B33171622C300F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptionFailedView.swift; sourceTree = "<group>"; };
 		72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportKeySheet.swift; sourceTree = "<group>"; };
+		739563D1A67E2CB528C407E5 /* ViewerWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerWindow.swift; sourceTree = "<group>"; };
 		798EC74958B81A8649633017 /* BetterGPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterGPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AA140A3B135615234C2B071 /* VaultNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultNote.swift; sourceTree = "<group>"; };
 		7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGNotInstalledBanner.swift; sourceTree = "<group>"; };
 		8110FD878DDE236025CC6E27 /* BetterGPGFinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BetterGPGFinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		82346838A2911D366169F9E4 /* WindowAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
+		864988A0DC7F2D9A4B16180C /* MarkdownPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreview.swift; sourceTree = "<group>"; };
 		8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropZone.swift; sourceTree = "<group>"; };
 		926BCF092311FC9BDF491E24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		96B16EAAC61E5958392CED14 /* ViewerContentViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerContentViews.swift; sourceTree = "<group>"; };
+		9A144DE85C5D930AAD809E95 /* SecureBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureBuffer.swift; sourceTree = "<group>"; };
 		9C2E46028030AEA7A38C27DE /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A6A185298E7DD859816F5A90 /* DropReviewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropReviewSheet.swift; sourceTree = "<group>"; };
+		A7431549B0EAECBA9AFE6EDE /* SecureWiper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureWiper.swift; sourceTree = "<group>"; };
+		A965C200739580478A2B902E /* FileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		AED41B1FB6CCA274454CA9CA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B367F5D20F02FE7168F298DB /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		BB6AEC8779FECA263E8360E2 /* Zipper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zipper.swift; sourceTree = "<group>"; };
 		BB6DFC7C6374066CD967F3E3 /* KeysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysView.swift; sourceTree = "<group>"; };
+		BCC7FBF71CB819461CBF1514 /* RamDiskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamDiskManager.swift; sourceTree = "<group>"; };
 		C28D1177A224C858AFAE1259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1EE09F54F1C43A2439A8D0A /* GPGService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPGService.swift; sourceTree = "<group>"; };
-		D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecryptView.swift; sourceTree = "<group>"; };
+		DA3A0D245C8BB4B5897FADF0 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		E05F91EC4DEB353758896A6F /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
 		E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionInfo.swift; sourceTree = "<group>"; };
-		E5F44F100474139023D27CA8 /* EncryptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptView.swift; sourceTree = "<group>"; };
+		E3327B8BA485184691221167 /* SessionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsView.swift; sourceTree = "<group>"; };
 		E64FFF91A73899BE9616746E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E8441F992ED7D566D7020189 /* GenerateKeySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateKeySheet.swift; sourceTree = "<group>"; };
+		F4354AB9FAFB973F6EDA5E94 /* VaultSidebarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultSidebarSection.swift; sourceTree = "<group>"; };
+		F4BC5771D58D78CEEE8B1852 /* EncryptSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptSheet.swift; sourceTree = "<group>"; };
+		FF57042272583BB533BF441A /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		03070A8866E450C620341AC2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				056F7EDA1052719EB8726D90 /* DocumentStore.swift */,
+				2DF978F951787B896E18CC87 /* FileAccessMonitor.swift */,
 				D1EE09F54F1C43A2439A8D0A /* GPGService.swift */,
+				6BB18EBC427A7637826EB7D5 /* PinentrySetup.swift */,
+				4F6E708457C7FC0CD2CF01CD /* PlaintextVault.swift */,
+				BCC7FBF71CB819461CBF1514 /* RamDiskManager.swift */,
+				9A144DE85C5D930AAD809E95 /* SecureBuffer.swift */,
+				A7431549B0EAECBA9AFE6EDE /* SecureWiper.swift */,
 				351BFDD7EADFAA6E9ACF2EB2 /* ServiceHandler.swift */,
+				DA3A0D245C8BB4B5897FADF0 /* SessionManager.swift */,
+				569573A193EA4B961FFB6CE7 /* Shell.swift */,
+				24FA10AC55A1FAFF5492AAB6 /* SystemDialogs.swift */,
+				28E7B6BEB88DBDE3DD6DA074 /* VaultStore.swift */,
+				BB6AEC8779FECA263E8360E2 /* Zipper.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		0432665703473118A965760E /* Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				96B16EAAC61E5958392CED14 /* ViewerContentViews.swift */,
+				739563D1A67E2CB528C407E5 /* ViewerWindow.swift */,
+			);
+			path = Viewer;
 			sourceTree = "<group>";
 		};
 		1D04D4B8E3CDAA2B1CCB4990 /* Groups */ = {
@@ -113,16 +186,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		432ACD449654B37E2904540C /* Vault */ = {
+			isa = PBXGroup;
+			children = (
+				864988A0DC7F2D9A4B16180C /* MarkdownPreview.swift */,
+				06B5FFC73D0266E64D9101DA /* VaultEditorView.swift */,
+				F4354AB9FAFB973F6EDA5E94 /* VaultSidebarSection.swift */,
+			);
+			path = Vault;
+			sourceTree = "<group>";
+		};
 		46E175611B0487834084465F /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				926BCF092311FC9BDF491E24 /* ContentView.swift */,
 				B026E862B86DC4F8AF866C5E /* Decrypt */,
-				6FFFE1F954C52E58F426EC67 /* Encrypt */,
 				1D04D4B8E3CDAA2B1CCB4990 /* Groups */,
+				B04252E7445C4D8F8AC289D5 /* Home */,
 				E2E95A270FBC30061130E351 /* Keys */,
+				F8CD811B78A98DCA74927B3B /* Sessions */,
 				FACBC364637CDD1F07AC7F20 /* Settings */,
 				66AB1783DA2F3C6D563B7CAC /* Shared */,
+				432ACD449654B37E2904540C /* Vault */,
+				0432665703473118A965760E /* Viewer */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,16 +226,10 @@
 			children = (
 				8CC7E5ECA2C664AD5B330C16 /* FileDropZone.swift */,
 				7D03B1FF297FCA46AD8E5402 /* GPGNotInstalledBanner.swift */,
+				FF57042272583BB533BF441A /* SearchField.swift */,
+				82346838A2911D366169F9E4 /* WindowAccessor.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		6FFFE1F954C52E58F426EC67 /* Encrypt */ = {
-			isa = PBXGroup;
-			children = (
-				E5F44F100474139023D27CA8 /* EncryptView.swift */,
-			);
-			path = Encrypt;
 			sourceTree = "<group>";
 		};
 		AA2DDAE661F5188881806818 /* Sources */ = {
@@ -168,11 +248,20 @@
 		B026E862B86DC4F8AF866C5E /* Decrypt */ = {
 			isa = PBXGroup;
 			children = (
-				7239C14329B9D89381F52EC0 /* DecryptionFailedView.swift */,
-				D91A2B2EFA2BFFD1C2C98326 /* DecryptView.swift */,
 				1E8B30C2F5CEB82023BB3B63 /* EncryptionInfoPanel.swift */,
 			);
 			path = Decrypt;
+			sourceTree = "<group>";
+		};
+		B04252E7445C4D8F8AC289D5 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				066C045A1A9B20166CD20F01 /* DecryptSheet.swift */,
+				A6A185298E7DD859816F5A90 /* DropReviewSheet.swift */,
+				F4BC5771D58D78CEEE8B1852 /* EncryptSheet.swift */,
+				698EE870D6BEF0D94332F4AF /* HomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C56BC5B6DECA8F4CBA4405E8 = {
@@ -198,6 +287,7 @@
 		E2E95A270FBC30061130E351 /* Keys */ = {
 			isa = PBXGroup;
 			children = (
+				E8441F992ED7D566D7020189 /* GenerateKeySheet.swift */,
 				72FE7EF7085BBF01D6E5A0E8 /* ImportKeySheet.swift */,
 				BB6DFC7C6374066CD967F3E3 /* KeysView.swift */,
 			);
@@ -209,8 +299,12 @@
 			children = (
 				9C2E46028030AEA7A38C27DE /* AppSettings.swift */,
 				E3054B8899803EABDE2A2E34 /* EncryptionInfo.swift */,
+				A965C200739580478A2B902E /* FileInfo.swift */,
 				08A8E62DC1FA2529E1AE1A4F /* GPGKey.swift */,
 				4B0CE557C4504AA4CBD36ADE /* KeyGroup.swift */,
+				3D8AE7D88EE49F85B2FD1B32 /* PlaintextSession.swift */,
+				7AA140A3B135615234C2B071 /* VaultNote.swift */,
+				052250333E564820AB0F93B7 /* ViewerDocument.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -229,6 +323,14 @@
 				E05F91EC4DEB353758896A6F /* FinderSync.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		F8CD811B78A98DCA74927B3B /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				E3327B8BA485184691221167 /* SessionsView.swift */,
+			);
+			path = Sessions;
 			sourceTree = "<group>";
 		};
 		FACBC364637CDD1F07AC7F20 /* Settings */ = {
@@ -299,7 +401,6 @@
 				};
 			};
 			buildConfigurationList = 168504A6CD6C379320DE6181 /* Build configuration list for PBXProject "BetterGPG" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -309,6 +410,7 @@
 			mainGroup = C56BC5B6DECA8F4CBA4405E8;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+			productRefGroup = 3B010DD15C6C2EC356983D60 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -347,22 +449,48 @@
 				76D0E433564F08A07504CBBF /* AppState.swift in Sources */,
 				4ECC5EE1CC5692B6B2697CCF /* BetterGPGApp.swift in Sources */,
 				F4F68083A9AE2DF57AC0B172 /* ContentView.swift in Sources */,
-				7DB7469075BD5584F656CF9F /* DecryptView.swift in Sources */,
-				724F419C565611FEE3ED7D50 /* DecryptionFailedView.swift in Sources */,
-				567521F896C6A993466C9D3D /* EncryptView.swift in Sources */,
+				548D454FA3DD33775D734F8A /* DecryptSheet.swift in Sources */,
+				5EA2D1F6269F6E616E6165F8 /* DocumentStore.swift in Sources */,
+				45D02A8E57E73A47D6E084C0 /* DropReviewSheet.swift in Sources */,
+				5787FBAC529DB8790DD2922C /* EncryptSheet.swift in Sources */,
 				F5C4C556611335516104312B /* EncryptionInfo.swift in Sources */,
 				810AE46122E4C0279739754F /* EncryptionInfoPanel.swift in Sources */,
+				2C4BF51E8E3B3139428B9BE9 /* FileAccessMonitor.swift in Sources */,
 				B1FEFA06016B616B92C6173D /* FileDropZone.swift in Sources */,
+				D03C5D8F5A1C408FABE6704D /* FileInfo.swift in Sources */,
 				0F122502097D90F52D6A6400 /* GPGKey.swift in Sources */,
 				6402CD2BE8FC49E9970EE127 /* GPGNotInstalledBanner.swift in Sources */,
 				A2BDE4C2854A21FFDB77DA77 /* GPGService.swift in Sources */,
+				A10D5DE469EEC258F3355E1F /* GenerateKeySheet.swift in Sources */,
 				BCBEEB6E0F433D406EE5AC93 /* GroupDetailView.swift in Sources */,
 				38512E6B832EC9E8DE521344 /* GroupsView.swift in Sources */,
+				F9E0D54B68EDD423F4E06951 /* HomeView.swift in Sources */,
 				F69E3E1578E5E6A750EE7CE2 /* ImportKeySheet.swift in Sources */,
 				323EB0F76A088DB7D9EF3903 /* KeyGroup.swift in Sources */,
 				505ACC8D71B4F134CDC65B71 /* KeysView.swift in Sources */,
+				0FE493752ABBF2375704FE0D /* MarkdownPreview.swift in Sources */,
+				C656EC4721AE27A786C4FBA3 /* PinentrySetup.swift in Sources */,
+				6A75D47281A5056E32E542F4 /* PlaintextSession.swift in Sources */,
+				46F899C011D229731CD3F88A /* PlaintextVault.swift in Sources */,
+				1D2DABC9A65B95493BC3FD61 /* RamDiskManager.swift in Sources */,
+				55ED8AF52CCF9C232AD85F98 /* SearchField.swift in Sources */,
+				7E70AE8021B7F66F831DE1C2 /* SecureBuffer.swift in Sources */,
+				B424E0E808123A4B7BCECEE8 /* SecureWiper.swift in Sources */,
 				59CF1C149D50BD10FFB22CB9 /* ServiceHandler.swift in Sources */,
+				26C70E104681C505DC49A870 /* SessionManager.swift in Sources */,
+				AF2731B353C2CE9083D12339 /* SessionsView.swift in Sources */,
 				7F5BBE9BE68BC00CED02491F /* SettingsView.swift in Sources */,
+				07062054679EB79599D51C30 /* Shell.swift in Sources */,
+				6DAC3F4C98AA6B7367F7F7AA /* SystemDialogs.swift in Sources */,
+				39BFDB08EDA3BD7BE880AAD8 /* VaultEditorView.swift in Sources */,
+				0B8F3267E61BCDF29E9600EC /* VaultNote.swift in Sources */,
+				CF33C412F2D009CAC4D6A759 /* VaultSidebarSection.swift in Sources */,
+				15096EEE60F4E864FC4FB2BE /* VaultStore.swift in Sources */,
+				AF31D42C1ECA17B12EBC3B16 /* ViewerContentViews.swift in Sources */,
+				56401294AF685CF5C023BFF1 /* ViewerDocument.swift in Sources */,
+				1D236BD388AA8D1890FB6F1D /* ViewerWindow.swift in Sources */,
+				F7E4F087E5A33DCD3008F999 /* WindowAccessor.swift in Sources */,
+				F6E05FD01077B58EA20563A0 /* Zipper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +519,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app.findersync";
 				PRODUCT_NAME = BetterGPGFinderExtension;
 				SDKROOT = macosx;
@@ -470,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app";
 				PRODUCT_NAME = BetterGPG;
 				SDKROOT = macosx;
@@ -556,7 +684,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app";
 				PRODUCT_NAME = BetterGPG;
 				SDKROOT = macosx;
@@ -577,7 +705,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.better-gpg.app.findersync";
 				PRODUCT_NAME = BetterGPGFinderExtension;
 				SDKROOT = macosx;

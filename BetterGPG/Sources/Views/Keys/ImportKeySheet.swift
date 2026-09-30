@@ -2,36 +2,49 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ImportKeySheet: View {
-    @EnvironmentObject var appState: AppState
-    @Environment(\.dismiss) var dismiss
+    @Environment(AppState.self) private var appState
+    @Environment(\.dismiss) private var dismiss
+
+    var initialText: String = ""
 
     @State private var pastedText = ""
+    @State private var lookup = ""
     @State private var isImporting = false
-    @State private var importError: String?
-    @State private var importSuccess = false
+    @State private var errorMessage: String?
+    @State private var successMessage: String?
+    @State private var didLoad = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Import Public Key")
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Import a Key")
                 .font(.title2.bold())
-
-            Text("Paste an armored GPG public key block, or drag a .asc / .gpg file into the text area.")
+            Text("Paste a public key, drop a file, or fetch one from keys.openpgp.org with an email or fingerprint.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
+
+            HStack {
+                TextField("Email or fingerprint", text: $lookup)
+                    .textFieldStyle(.roundedBorder)
+                Button("Fetch") { fetch() }
+                    .disabled(lookup.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isImporting)
+            }
 
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $pastedText)
                     .font(.system(.caption, design: .monospaced))
-                    .frame(minHeight: 200)
+                    .frame(minHeight: 180)
                     .scrollContentBackground(.hidden)
                     .padding(8)
                     .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
-                    .onDrop(of: [UTType.fileURL], isTargeted: nil) { providers in
-                        loadDroppedFile(providers)
+                    .onDrop(of: [.fileURL], isTargeted: nil) { providers in
+                        Task {
+                            let urls = await FileDrop.load(providers)
+                            await load(urls)
+                        }
+                        return true
                     }
-
                 if pastedText.isEmpty {
-                    Text("Paste key here or drag a .asc file…")
+                    Text("Paste a key here, or drop a .asc file")
                         .font(.system(.caption, design: .monospaced))
                         .foregroundStyle(.tertiary)
                         .padding(16)
@@ -39,87 +52,111 @@ struct ImportKeySheet: View {
                 }
             }
 
-            if let error = importError {
-                Label(error, systemImage: "xmark.circle.fill")
+            if let errorMessage {
+                Label(errorMessage, systemImage: "xmark.circle.fill")
                     .foregroundStyle(.red)
                     .font(.callout)
             }
-
-            if importSuccess {
-                Label("Key imported successfully!", systemImage: "checkmark.circle.fill")
+            if let successMessage {
+                Label(successMessage, systemImage: "checkmark.circle.fill")
                     .foregroundStyle(.green)
                     .font(.callout)
             }
 
             HStack {
+                Button("Paste") { pasteFromClipboard() }
                 Button("Choose File…") { chooseFile() }
-                    .buttonStyle(.bordered)
-
                 Spacer()
-
                 Button("Cancel") { dismiss() }
                     .keyboardShortcut(.cancelAction)
-
-                Button("Import") { performImport() }
+                Button("Import") { importPasted() }
                     .buttonStyle(.borderedProminent)
                     .keyboardShortcut(.defaultAction)
                     .disabled(pastedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isImporting)
             }
         }
         .padding(24)
-        .frame(width: 520, height: 420)
+        .frame(width: 560, height: 480)
         .overlay {
             if isImporting {
-                ProgressView("Importing…")
+                ProgressView("Working…")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(.regularMaterial)
             }
         }
+        .onAppear {
+            guard !didLoad else { return }
+            didLoad = true
+            if pastedText.isEmpty { pastedText = initialText }
+        }
     }
 
-    private func performImport() {
-        let text = pastedText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty else { return }
-        isImporting = true
-        importError = nil
-        importSuccess = false
-
-        Task {
-            do {
-                try await appState.importKey(armored: text)
-                importSuccess = true
-                isImporting = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
-            } catch {
-                importError = error.localizedDescription
-                isImporting = false
-            }
+    private func pasteFromClipboard() {
+        if let value = NSPasteboard.general.string(forType: .string) {
+            pastedText = value
         }
     }
 
     private func chooseFile() {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = [
-            .init(filenameExtension: "asc") ?? .data,
-            .init(filenameExtension: "gpg") ?? .data,
-            .init(filenameExtension: "pgp") ?? .data
-        ]
-        panel.allowsMultipleSelection = false
-        if panel.runModal() == .OK, let url = panel.url,
-           let contents = try? String(contentsOf: url, encoding: .utf8) {
-            pastedText = contents
+        let urls = SystemDialogs.chooseFiles(
+            allowsDirectories: false,
+            message: "Choose a key file",
+            extensions: ["asc", "gpg", "pgp", "key", "pub"]
+        )
+        Task { await load(urls) }
+    }
+
+    private func load(_ urls: [URL]) async {
+        var chunks: [String] = []
+        for url in urls {
+            if let text = try? String(contentsOf: url, encoding: .utf8), text.contains("BEGIN PGP") {
+                chunks.append(text)
+            } else {
+                await run {
+                    try await appState.importKeys(at: [url])
+                    return "Imported \(url.lastPathComponent)"
+                }
+            }
+        }
+        if !chunks.isEmpty {
+            pastedText = chunks.joined(separator: "\n")
         }
     }
 
-    private func loadDroppedFile(_ providers: [NSItemProvider]) -> Bool {
-        for provider in providers {
-            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { item, _ in
-                guard let data = item as? Data,
-                      let url = URL(dataRepresentation: data, relativeTo: nil, isAbsolute: true),
-                      let contents = try? String(contentsOf: url, encoding: .utf8) else { return }
-                DispatchQueue.main.async { pastedText = contents }
+    private func importPasted() {
+        let text = pastedText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !text.isEmpty else { return }
+        Task {
+            await run {
+                try await appState.importKey(armored: text)
+                return "Key imported"
             }
         }
-        return true
+    }
+
+    private func fetch() {
+        let query = lookup.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return }
+        Task {
+            await run {
+                try await appState.receiveKeys(query: query)
+                return "Fetched keys for \(query)"
+            }
+        }
+    }
+
+    private func run(_ operation: () async throws -> String) async {
+        isImporting = true
+        errorMessage = nil
+        successMessage = nil
+        do {
+            successMessage = try await operation()
+            isImporting = false
+            try? await Task.sleep(for: .milliseconds(700))
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+            isImporting = false
+        }
     }
 }

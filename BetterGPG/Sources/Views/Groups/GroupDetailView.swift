@@ -1,140 +1,234 @@
 import SwiftUI
 
 struct GroupDetailView: View {
-    @EnvironmentObject var appState: AppState
-    @Binding var group: KeyGroup
-    @State private var showAddKeySheet = false
+    @Environment(AppState.self) private var appState
+    let groupID: UUID
+    @State private var showAddPeople = false
     @State private var searchText = ""
+    @State private var selection = Set<String>()
 
-    private var groupKeys: [GPGKey] {
-        group.keyFingerprints.compactMap { fp in
-            appState.publicKeys.first { $0.fingerprint == fp }
-            ?? appState.secretKeys.first { $0.fingerprint == fp }
-        }
+    private var group: KeyGroup? {
+        appState.groups.first { $0.id == groupID }
     }
 
-    private var filteredGroupKeys: [GPGKey] {
-        guard !searchText.isEmpty else { return groupKeys }
-        return groupKeys.filter {
-            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
-            $0.fingerprint.localizedCaseInsensitiveContains(searchText)
+    private var members: [GPGKey] {
+        group.map { appState.recipients(for: $0) } ?? []
+    }
+
+    private var filteredMembers: [GPGKey] {
+        guard !searchText.isEmpty else { return members }
+        return members.filter {
+            $0.displayName.localizedCaseInsensitiveContains(searchText)
+                || $0.fingerprint.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
         }
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Explicit header so title stays in detail panel (navigationTitle can appear in wrong column when nested)
-            Text(group.name)
-                .font(.title2.bold())
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 16)
-                .padding(.top, 12)
-                .padding(.bottom, 8)
-
-            List {
-                if filteredGroupKeys.isEmpty && searchText.isEmpty {
+        if let group {
+            Group {
+                if members.isEmpty {
                     ContentUnavailableView {
-                        Label("No Keys in Group", systemImage: "person.crop.circle.badge.plus")
+                        Label("No People Yet", systemImage: "person.crop.circle.badge.plus")
                     } description: {
-                        Text("Add public keys to this group. Files encrypted for this group can be decrypted by anyone with a matching private key.")
+                        Text("Add everyone who should be able to open files you encrypt for \(group.name).")
                     } actions: {
-                        Button("Add Keys…") { showAddKeySheet = true }
+                        Button("Add People…") { showAddPeople = true }
                             .buttonStyle(.borderedProminent)
                     }
                 } else {
-                    Section("Members (\(filteredGroupKeys.count))") {
-                        ForEach(filteredGroupKeys) { key in
-                            HStack {
-                                KeyRow(key: key, isOwn: key.fingerprint == appState.settings.ownKeyFingerprint)
-                                Spacer()
-                                Button {
-                                    appState.removeKey(key.fingerprint, fromGroup: group.id)
-                                } label: {
-                                    Image(systemName: "minus.circle.fill")
-                                        .foregroundStyle(.red)
-                                }
-                                .buttonStyle(.plain)
-                                .help("Remove from group")
-                            }
+                    peopleList(group)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                VStack(spacing: 0) {
+                    header(group)
+                    Divider()
+                }
+                .background(Color(nsColor: .windowBackgroundColor))
+            }
+            .sheet(isPresented: $showAddPeople) {
+                AddPeopleSheet(groupID: groupID)
+            }
+        }
+    }
+
+    private func header(_ group: KeyGroup) -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(group.name)
+                    .font(.title2.bold())
+                    .lineLimit(1)
+                if !members.isEmpty {
+                    Text(subtitle)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Spacer(minLength: 12)
+            if !members.isEmpty {
+                Button("Add People…") { showAddPeople = true }
+                Button("Encrypt Files…") { encrypt(for: group) }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!appState.gpgAvailable)
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var subtitle: String {
+        var text = "\(peopleCount(members.count)). Any of them can open files encrypted for this group."
+        if appState.settings.includeOwnKey, appState.ownKey != nil {
+            text += " So can you."
+        }
+        return text
+    }
+
+    private func peopleList(_ group: KeyGroup) -> some View {
+        VStack(spacing: 0) {
+            SearchField(text: $searchText, prompt: "Search people")
+                .padding(.horizontal, 20)
+                .padding(.top, 12)
+                .padding(.bottom, 4)
+
+            List(selection: $selection) {
+                ForEach(filteredMembers) { key in
+                    HStack {
+                        KeyRow(key: key, isOwn: key.fingerprint == appState.settings.ownKeyFingerprint)
+                        Button("Remove from Group", systemImage: "minus.circle") {
+                            remove([key.fingerprint], from: group)
                         }
+                        .labelStyle(.iconOnly)
+                        .buttonStyle(.borderless)
+                        .foregroundStyle(.secondary)
+                        .help("Remove from group")
+                    }
+                    .tag(key.fingerprint)
+                }
+            }
+            .listStyle(.inset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .contextMenu(forSelectionType: String.self) { fingerprints in
+                if !fingerprints.isEmpty {
+                    Button(fingerprints.count == 1 ? "Remove from Group" : "Remove \(fingerprints.count) People from Group", role: .destructive) {
+                        remove(fingerprints, from: group)
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Search members…")
-            .listStyle(.inset(alternatesRowBackgrounds: true))
-
-            Divider()
-
-            HStack {
-                if appState.settings.includeOwnKey && !appState.settings.ownKeyFingerprint.isEmpty {
-                    Label("Your key will be auto-included when encrypting", systemImage: "info.circle")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+            .onDeleteCommand { remove(selection, from: group) }
+            .overlay {
+                if filteredMembers.isEmpty {
+                    ContentUnavailableView.search(text: searchText)
                 }
-                Spacer()
-                Button("Add Keys…") { showAddKeySheet = true }
-                    .buttonStyle(.borderedProminent)
             }
-            .padding(12)
         }
-        .sheet(isPresented: $showAddKeySheet) {
-            AddKeysToGroupSheet(group: $group)
+    }
+
+    private func remove(_ fingerprints: Set<String>, from group: KeyGroup) {
+        for fingerprint in fingerprints {
+            appState.removeKey(fingerprint, fromGroup: group.id)
         }
+        selection.subtract(fingerprints)
+    }
+
+    private func encrypt(for group: KeyGroup) {
+        let urls = SystemDialogs.chooseFiles(
+            allowsDirectories: true,
+            message: "Choose files to encrypt for \(group.name)",
+            extensions: nil
+        )
+        guard !urls.isEmpty else { return }
+        appState.activeSheet = .encrypt(urls: urls, groupID: group.id)
     }
 }
 
-// MARK: - Add Keys Sheet
-
-struct AddKeysToGroupSheet: View {
-    @EnvironmentObject var appState: AppState
-    @Binding var group: KeyGroup
-    @Environment(\.dismiss) var dismiss
-    @State private var selected = Set<String>()
+private struct AddPeopleSheet: View {
+    @Environment(AppState.self) private var appState
+    @Environment(\.dismiss) private var dismiss
+    let groupID: UUID
+    @State private var selection = Set<String>()
     @State private var searchText = ""
 
-    private var availableKeys: [GPGKey] {
-        let existing = Set(group.keyFingerprints)
-        let keys = appState.publicKeys.filter { !existing.contains($0.fingerprint) }
-        guard !searchText.isEmpty else { return keys }
-        return keys.filter {
-            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
-            $0.fingerprint.localizedCaseInsensitiveContains(searchText)
+    private var group: KeyGroup? {
+        appState.groups.first { $0.id == groupID }
+    }
+
+    private var candidates: [GPGKey] {
+        let existing = Set(group?.keyFingerprints ?? [])
+        return appState.publicKeys.filter { !existing.contains($0.fingerprint) }
+    }
+
+    private var filteredCandidates: [GPGKey] {
+        guard !searchText.isEmpty else { return candidates }
+        return candidates.filter {
+            $0.displayName.localizedCaseInsensitiveContains(searchText)
+                || $0.fingerprint.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
         }
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text("Add Keys to \u{201C}\(group.name)\u{201D}")
-                    .font(.title2.bold())
-                Spacer()
-                Button("Done") { addSelected(); dismiss() }
-                    .buttonStyle(.borderedProminent)
-                    .keyboardShortcut(.defaultAction)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Add People to \(group?.name ?? "Group")")
+                    .font(.headline)
+                Text("Select one or more people. Hold ⌘ to select several.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
             }
-            .padding([.top, .horizontal], 20)
+            .padding([.horizontal, .top], 20)
             .padding(.bottom, 12)
 
-            Divider()
-
-            if availableKeys.isEmpty {
-                ContentUnavailableView("No Keys Available", systemImage: "person.crop.circle", description: Text("All imported keys are already in this group, or you haven't imported any keys yet."))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if candidates.isEmpty {
+                ContentUnavailableView {
+                    Label(appState.publicKeys.isEmpty ? "No Keys Yet" : "Everyone Is Already Here", systemImage: "person.crop.circle")
+                } description: {
+                    Text(appState.publicKeys.isEmpty
+                        ? "Import someone's public key first, then add them to this group."
+                        : "Everyone you have imported is already in this group.")
+                } actions: {
+                    Button("Import Key…") {
+                        dismiss()
+                        Task {
+                            try? await Task.sleep(for: .milliseconds(350))
+                            appState.activeSheet = .importKey(text: "")
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                List(availableKeys, selection: $selected) { key in
+                SearchField(text: $searchText, prompt: "Search people")
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 4)
+                List(filteredCandidates, selection: $selection) { key in
                     KeyRow(key: key, isOwn: key.fingerprint == appState.settings.ownKeyFingerprint)
                         .tag(key.fingerprint)
                 }
-                .listStyle(.inset(alternatesRowBackgrounds: true))
-                .searchable(text: $searchText, prompt: "Search keys…")
+                .listStyle(.inset)
+                .overlay {
+                    if filteredCandidates.isEmpty {
+                        ContentUnavailableView.search(text: searchText)
+                    }
+                }
             }
-        }
-        .frame(width: 480, height: 400)
-    }
 
-    private func addSelected() {
-        for fp in selected {
-            appState.addKey(fp, toGroup: group.id)
+            Divider()
+            HStack {
+                Spacer()
+                Button("Cancel", role: .cancel) { dismiss() }
+                    .keyboardShortcut(.cancelAction)
+                Button(selection.count > 1 ? "Add \(selection.count) People" : "Add") {
+                    for fingerprint in selection {
+                        appState.addKey(fingerprint, toGroup: groupID)
+                    }
+                    dismiss()
+                }
+                .keyboardShortcut(.defaultAction)
+                .disabled(selection.isEmpty)
+            }
+            .padding(16)
         }
+        .frame(width: 500, height: 460)
     }
 }

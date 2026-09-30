@@ -1,13 +1,21 @@
 import Foundation
 
-/// Metadata extracted from a GPG-encrypted file without decrypting it.
-struct EncryptionInfo: Sendable {
-    /// Key IDs of recipients (from pubkey enc packets; typically 16-char subkey IDs).
-    let recipientKeyIds: [String]
-    /// Key ID of the signer, if the message is signed.
-    let signerKeyId: String?
-    /// Whether the current user has a secret key that can decrypt this file.
-    let isCurrentUserRecipient: Bool
-    /// Whether the message is signed (has a signature packet).
-    let isSigned: Bool
+/// Metadata read from a GPG file without decrypting it.
+struct EncryptionInfo: Equatable, Sendable {
+    var recipientKeyIds: [String]
+    var signerKeyId: String?
+    var isCurrentUserRecipient: Bool
+    var isSigned: Bool
+
+    var hasHiddenRecipients: Bool {
+        let visible = recipientKeyIds.filter { !$0.isEmpty && $0 != String(repeating: "0", count: $0.count) }
+        return visible.isEmpty
+    }
+
+    var visibleRecipientKeyIds: [String] {
+        recipientKeyIds.filter { keyId in
+            let stripped = keyId.trimmingCharacters(in: .whitespaces)
+            return !stripped.isEmpty && stripped.contains(where: { $0 != "0" })
+        }
+    }
 }

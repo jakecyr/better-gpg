@@ -1,9 +1,29 @@
-import SwiftUI
 import FinderSync
+import SwiftUI
+
+struct VaultNoteDetail: View {
+    @Environment(AppState.self) private var appState
+
+    var body: some View {
+        if let note = appState.vaultNotes.openNote {
+            VaultEditorView(note: note)
+                .id(note.id)
+        } else {
+            VStack(spacing: 10) {
+                ProgressView()
+                Text("Unlocking…")
+                Text("Enter your passphrase if GPG asks for it.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+}
 
 struct ContentView: View {
-    @EnvironmentObject var appState: AppState
-    @State private var columnVisibility = NavigationSplitViewVisibility.all
+    @Environment(AppState.self) private var appState
+    @Environment(SessionManager.self) private var sessions
     @State private var extensionEnabled = FIFinderSyncController.isExtensionEnabled
     @State private var extensionBannerDismissed = false
 
@@ -12,22 +32,60 @@ struct ContentView: View {
     }
 
     var body: some View {
+        @Bindable var appState = appState
+
         VStack(spacing: 0) {
             if showExtensionBanner {
                 extensionBanner
             }
 
-            NavigationSplitView(columnVisibility: $columnVisibility) {
-                sidebar
+            NavigationSplitView {
+                List(selection: $appState.sidebarSelection) {
+                    Section {
+                        ForEach(AppSection.allCases) { section in
+                            Label(section.title, systemImage: section.icon)
+                                .badge(section == .sessions ? appState.unlockedCount : 0)
+                                .tag(SidebarSelection.section(section))
+                        }
+                    }
+                    VaultSidebarSection()
+                }
+                .listStyle(.sidebar)
+                .navigationSplitViewColumnWidth(min: 200, ideal: 240)
+                .navigationTitle("BetterGPG")
             } detail: {
-                detailView
+                switch appState.sidebarSelection {
+                case .vaultFile:
+                    VaultNoteDetail()
+                case .section(let section):
+                    sectionDetail(section)
+                }
             }
             .navigationSplitViewStyle(.balanced)
         }
-        .onChange(of: appState.pendingEncryptURLs) { _, urls in
-            if !urls.isEmpty { appState.activeTab = .encrypt }
+        .onDrop(of: [.fileURL], isTargeted: nil) { providers in
+            Task {
+                let urls = await FileDrop.load(providers)
+                guard !urls.isEmpty else { return }
+                appState.handleIncomingFiles(urls, source: .drag)
+            }
+            return true
         }
-        .alert("Error", isPresented: Binding(
+        .sheet(item: $appState.activeSheet) { sheet in
+            switch sheet {
+            case .encrypt(let urls, let groupID):
+                EncryptSheet(urls: urls, preselectedGroupID: groupID)
+            case .decrypt(let urls, let mode):
+                DecryptSheet(urls: urls, initialMode: mode)
+            case .importKey(let text):
+                ImportKeySheet(initialText: text)
+            case .generateKey:
+                GenerateKeySheet()
+            case .review(let items):
+                DropReviewSheet(items: items)
+            }
+        }
+        .alert("Something went wrong", isPresented: Binding(
             get: { appState.lastError != nil },
             set: { if !$0 { appState.lastError = nil } }
         )) {
@@ -36,35 +94,63 @@ struct ContentView: View {
             Text(appState.lastError ?? "")
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-            // Refresh status whenever app comes back to foreground (e.g. after user enables extension)
             extensionEnabled = FIFinderSyncController.isExtensionEnabled
+        }
+        .onChange(of: appState.sidebarSelection) { _, selection in
+            switch selection {
+            case .section(let section):
+                if appState.section != section {
+                    appState.section = section
+                }
+                Task {
+                    let closed = await appState.vaultNotes.closeOpenNote(saveChanges: true, updateSidebar: false)
+                    if !closed, let path = appState.vaultNotes.openNote?.sourceURL.path {
+                        appState.sidebarSelection = .vaultFile(path)
+                    }
+                }
+            case .vaultFile(let path):
+                Task { await appState.vaultNotes.open(path: path) }
+            }
+        }
+        .sheet(isPresented: $appState.isCreatingVaultNote) {
+            NewVaultNoteSheet { url in
+                appState.sidebarSelection = .vaultFile(url.path)
+            }
         }
     }
 
-    // MARK: - Extension banner
+    @ViewBuilder
+    private func sectionDetail(_ section: AppSection) -> some View {
+        switch section {
+        case .home:
+            HomeView()
+        case .sessions:
+            SessionsView()
+        case .keys:
+            KeysView()
+        case .groups:
+            GroupsView()
+        }
+    }
 
     private var extensionBanner: some View {
         HStack(spacing: 12) {
-            Image(systemName: "hand.point.right.fill")
+            Image(systemName: "contextualmenu.and.cursorarrow")
                 .foregroundStyle(Color.accentColor)
                 .font(.title2)
-
             VStack(alignment: .leading, spacing: 2) {
-                Text("Enable Finder Extension for right-click access")
+                Text("Turn on the Finder extension")
                     .font(.callout.bold())
-                Text("One tap to add Encrypt/Decrypt to every file's right-click menu in Finder.")
+                Text("Then you can encrypt or open a file from its right-click menu.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-
             Spacer()
-
-            Button("Enable Now") {
+            Button("Enable") {
                 FIFinderSyncController.showExtensionManagementInterface()
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.small)
-
             Button {
                 extensionBannerDismissed = true
             } label: {
@@ -78,38 +164,6 @@ struct ContentView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .background(Color.accentColor.opacity(0.08))
-        .overlay(alignment: .bottom) {
-            Divider()
-        }
-    }
-
-    // MARK: - Sidebar
-
-    private var sidebar: some View {
-        List(SidebarItem.allCases, id: \.self, selection: $appState.activeTab) { item in
-            Label(item.rawValue, systemImage: item.icon)
-                .tag(item)
-        }
-        .listStyle(.sidebar)
-        .navigationTitle("BetterGPG")
-        .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-    }
-
-    // MARK: - Detail
-
-    @ViewBuilder
-    private var detailView: some View {
-        switch appState.activeTab {
-        case .keys:
-            KeysView()
-        case .groups:
-            GroupsView()
-        case .encrypt:
-            EncryptView()
-        case .decrypt:
-            DecryptView()
-        case .settings:
-            SettingsView()
-        }
+        .overlay(alignment: .bottom) { Divider() }
     }
 }

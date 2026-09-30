@@ -1,113 +1,107 @@
 import SwiftUI
 
 struct KeysView: View {
-    @EnvironmentObject var appState: AppState
+    @Environment(AppState.self) private var appState
     @State private var searchText = ""
-    @State private var showImportSheet = false
-    @State private var selectedKey: GPGKey?
-    @State private var showDeleteConfirm = false
     @State private var keyToDelete: GPGKey?
     @State private var exportedText: String?
-    @State private var showExportSheet = false
+    @State private var showExport = false
 
-    private var filteredPublicKeys: [GPGKey] {
-        guard !searchText.isEmpty else { return appState.publicKeys }
-        return appState.publicKeys.filter {
-            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
-            $0.fingerprint.localizedCaseInsensitiveContains(searchText)
-        }
+    private var secretKeys: [GPGKey] {
+        filtered(appState.secretKeys)
     }
 
-    private var filteredSecretKeys: [GPGKey] {
-        let base = appState.secretKeys.filter { !$0.fingerprint.isEmpty }
-        guard !searchText.isEmpty else { return base }
-        return base.filter {
-            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
-            $0.fingerprint.localizedCaseInsensitiveContains(searchText)
-        }
+    private var contactKeys: [GPGKey] {
+        filtered(appState.contactKeys)
+    }
+
+    private var hasVisibleKeys: Bool {
+        !secretKeys.isEmpty || !contactKeys.isEmpty
     }
 
     var body: some View {
         VStack(spacing: 0) {
             if !appState.gpgAvailable {
-                GPGNotInstalledBanner().padding()
+                GPGNotInstalledBanner()
+                    .padding()
             }
 
-            List(selection: $selectedKey) {
-                if !filteredPublicKeys.isEmpty {
-                    Section("Public Keys (\(filteredPublicKeys.count))") {
-                        ForEach(filteredPublicKeys) { key in
-                            KeyRow(key: key, isOwn: key.fingerprint == appState.settings.ownKeyFingerprint)
-                                .tag(key)
-                                .contextMenu {
-                                    Button("Export Public Key…") { exportKey(key) }
-                                    Divider()
-                                    Button("Delete Key", role: .destructive) { promptDelete(key) }
-                                }
-                        }
-                    }
-                }
-
-                let secretFps = Set(appState.secretKeys.map(\.fingerprint))
-                if !filteredSecretKeys.isEmpty {
-                    Section("Secret Keys (\(filteredSecretKeys.count))") {
-                        ForEach(filteredSecretKeys) { key in
-                            KeyRow(key: key, isOwn: true, isSecret: true)
-                                .tag(key)
-                                .contextMenu {
-                                    Button("Export Public Key…") { exportKey(key) }
-                                    Divider()
-                                    Button("Delete Secret + Public Key", role: .destructive) { promptDelete(key) }
-                                }
-                        }
-                    }
-                    let _ = secretFps // suppress warning
-                }
-
-                if filteredPublicKeys.isEmpty && filteredSecretKeys.isEmpty && !appState.isLoadingKeys {
-                    ContentUnavailableView {
-                        Label(searchText.isEmpty ? "No Keys Found" : "No Matching Keys", systemImage: "person.text.rectangle")
-                    } description: {
-                        Text(searchText.isEmpty
-                             ? "Import keys using the + button above, or have your contacts share their public keys."
-                             : "No public or secret keys match your search.")
-                    }
-                }
-            }
-            .searchable(text: $searchText, prompt: "Search keys…")
-            .listStyle(.inset(alternatesRowBackgrounds: true))
-            .overlay {
-                if appState.isLoadingKeys {
+            Group {
+                if appState.isLoadingKeys && !hasVisibleKeys {
                     ProgressView("Loading keys…")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.regularMaterial)
+                } else if !hasVisibleKeys {
+                    if searchText.isEmpty {
+                        ContentUnavailableView {
+                            Label("No Keys", systemImage: "person.text.rectangle")
+                        } description: {
+                            Text("Generate a secret key for yourself, or paste a public key, drop a .asc file, or fetch one by email.")
+                        } actions: {
+                            Button("Generate a Key…") { appState.activeSheet = .generateKey }
+                                .buttonStyle(.borderedProminent)
+                                .disabled(!appState.gpgAvailable)
+                            Button("Import Key…") { appState.activeSheet = .importKey(text: "") }
+                        }
+                    } else {
+                        ContentUnavailableView.search(text: searchText)
+                    }
+                } else {
+                    List {
+                        if !secretKeys.isEmpty {
+                            Section("My Keys") {
+                                ForEach(secretKeys) { key in
+                                    keyRow(key, isOwn: key.fingerprint == appState.settings.ownKeyFingerprint, isSecret: true)
+                                }
+                            }
+                        }
+                        if !contactKeys.isEmpty {
+                            Section("People") {
+                                ForEach(contactKeys) { key in
+                                    keyRow(key, isOwn: false, isSecret: false)
+                                }
+                            }
+                        }
+                    }
+                    .listStyle(.inset(alternatesRowBackgrounds: true))
+                    .overlay {
+                        if appState.isLoadingKeys {
+                            ProgressView("Loading keys…")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.regularMaterial)
+                        }
+                    }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .searchable(text: $searchText, prompt: "Search keys")
         .navigationTitle("Keys")
         .toolbar {
+            if appState.secretKeys.isEmpty {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Generate Key", systemImage: "key") {
+                        appState.activeSheet = .generateKey
+                    }
+                    .disabled(!appState.gpgAvailable)
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
-                Button("Import Key", systemImage: "plus") { showImportSheet = true }
-                    .help("Import a GPG public key")
+                Button("Import Key", systemImage: "plus") {
+                    appState.activeSheet = .importKey(text: "")
+                }
             }
             ToolbarItem {
                 Button("Refresh", systemImage: "arrow.clockwise") {
                     Task { await appState.refreshKeys() }
                 }
-                .help("Reload keys from GPG keyring")
-            }
-        }
-        .sheet(isPresented: $showImportSheet) {
-            ImportKeySheet()
-        }
-        .sheet(isPresented: $showExportSheet) {
-            if let text = exportedText {
-                ExportKeySheet(armoredKey: text)
             }
         }
         .confirmationDialog(
-            "Delete \(keyToDelete?.displayName ?? "key")?",
-            isPresented: $showDeleteConfirm,
+            "Delete \(keyToDelete?.displayName ?? "this key")?",
+            isPresented: Binding(
+                get: { keyToDelete != nil },
+                set: { if !$0 { keyToDelete = nil } }
+            ),
             titleVisibility: .visible
         ) {
             Button("Delete", role: .destructive) {
@@ -121,29 +115,72 @@ struct KeysView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(keyToDelete?.isSecret == true
-                 ? "This will permanently delete both the secret and public key from your keyring."
-                 : "This will permanently delete the public key from your keyring.")
+                 ? "This removes the secret key and the public key from your keyring."
+                 : "This removes the public key from your keyring.")
+        }
+        .sheet(isPresented: $showExport) {
+            if let exportedText {
+                ExportKeySheet(armoredKey: exportedText)
+            }
         }
     }
 
-    private func promptDelete(_ key: GPGKey) {
-        keyToDelete = key
-        showDeleteConfirm = true
+    private func filtered(_ keys: [GPGKey]) -> [GPGKey] {
+        guard !searchText.isEmpty else { return keys }
+        return keys.filter {
+            $0.displayName.localizedCaseInsensitiveContains(searchText)
+                || $0.fingerprint.localizedCaseInsensitiveContains(searchText)
+        }
     }
 
-    private func exportKey(_ key: GPGKey) {
+    private func keyRow(_ key: GPGKey, isOwn: Bool, isSecret: Bool) -> some View {
+        KeyRow(key: key, isOwn: isOwn, isSecret: isSecret)
+            .contextMenu {
+                if isSecret {
+                    Button(isOwn ? "This Is My Key" : "Use as My Key") {
+                        appState.settings.ownKeyFingerprint = key.fingerprint
+                        appState.settings.includeOwnKey = true
+                        appState.persistSettings()
+                    }
+                    .disabled(isOwn)
+                }
+                Button("Copy Fingerprint") { copy(key.formattedFingerprint) }
+                Button("Export Public Key…") { export(key) }
+                Menu("Add to Group") {
+                    if appState.groups.isEmpty {
+                        Button("Create a Group") { appState.section = .groups }
+                    }
+                    ForEach(appState.groups) { group in
+                        let included = group.keyFingerprints.contains(key.fingerprint)
+                        Button(included ? "\(group.name) ✓" : group.name) {
+                            appState.addKey(key.fingerprint, toGroup: group.id)
+                        }
+                        .disabled(included)
+                    }
+                }
+                Divider()
+                Button(isSecret ? "Delete Secret Key" : "Delete Key", role: .destructive) {
+                    keyToDelete = key
+                }
+            }
+    }
+
+    private func copy(_ value: String) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(value, forType: .string)
+    }
+
+    private func export(_ key: GPGKey) {
         Task {
             do {
                 exportedText = try await appState.exportPublicKey(fingerprint: key.fingerprint)
-                showExportSheet = true
+                showExport = true
             } catch {
                 appState.lastError = error.localizedDescription
             }
         }
     }
 }
-
-// MARK: - Key Row
 
 struct KeyRow: View {
     let key: GPGKey
@@ -156,11 +193,9 @@ struct KeyRow: View {
                 .foregroundStyle(isOwn ? Color.accentColor : Color.secondary)
                 .font(.title3)
                 .frame(width: 28)
-
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 6) {
                     Text(key.displayName)
-                        .font(.body)
                         .lineLimit(1)
                     if isOwn {
                         Text("me")
@@ -179,9 +214,15 @@ struct KeyRow: View {
                             .foregroundStyle(.red)
                     }
                 }
-                Text(key.shortFingerprint)
-                    .font(.caption.monospaced())
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 8) {
+                    Text(key.shortFingerprint)
+                        .font(.caption.monospaced())
+                    if !key.algorithmSummary.isEmpty {
+                        Text(key.algorithmSummary)
+                            .font(.caption)
+                    }
+                }
+                .foregroundStyle(.secondary)
             }
             Spacer()
         }
@@ -189,17 +230,14 @@ struct KeyRow: View {
     }
 }
 
-// MARK: - Export Sheet
-
 struct ExportKeySheet: View {
     let armoredKey: String
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Public Key")
                 .font(.title2.bold())
-
             ScrollView {
                 Text(armoredKey)
                     .font(.system(.caption, design: .monospaced))
@@ -208,19 +246,16 @@ struct ExportKeySheet: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
             }
-
             HStack {
-                Button("Copy to Clipboard") {
+                Button("Copy") {
                     NSPasteboard.general.clearContents()
                     NSPasteboard.general.setString(armoredKey, forType: .string)
                 }
-                .buttonStyle(.bordered)
-
-                Button("Save to File…") {
-                    saveToFile()
+                Button("Save…") {
+                    if let url = SystemDialogs.saveFile(suggestedName: "public-key.asc") {
+                        try? armoredKey.write(to: url, atomically: true, encoding: .utf8)
+                    }
                 }
-                .buttonStyle(.bordered)
-
                 Spacer()
                 Button("Done") { dismiss() }
                     .buttonStyle(.borderedProminent)
@@ -228,15 +263,6 @@ struct ExportKeySheet: View {
             }
         }
         .padding(24)
-        .frame(width: 500, height: 400)
-    }
-
-    private func saveToFile() {
-        let panel = NSSavePanel()
-        panel.allowedContentTypes = [.init(filenameExtension: "asc")!]
-        panel.nameFieldStringValue = "public-key.asc"
-        if panel.runModal() == .OK, let url = panel.url {
-            try? armoredKey.write(to: url, atomically: true, encoding: .utf8)
-        }
+        .frame(width: 520, height: 420)
     }
 }

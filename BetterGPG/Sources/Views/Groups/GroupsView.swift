@@ -1,116 +1,163 @@
 import SwiftUI
 
 struct GroupsView: View {
-    @EnvironmentObject var appState: AppState
-    @State private var selectedGroup: KeyGroup?
-    @State private var showNewGroupAlert = false
+    @Environment(AppState.self) private var appState
+    @State private var selectedGroupID: UUID?
+    @State private var searchText = ""
+    @State private var showNewGroup = false
     @State private var newGroupName = ""
-    @State private var showRenameAlert = false
+    @State private var renameTarget: KeyGroup?
     @State private var renameText = ""
-    @State private var groupToRename: KeyGroup?
-    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+
+    private var filteredGroups: [KeyGroup] {
+        guard !searchText.isEmpty else { return appState.groups }
+        return appState.groups.filter { group in
+            group.name.localizedCaseInsensitiveContains(searchText)
+                || appState.recipients(for: group).contains { $0.displayName.localizedCaseInsensitiveContains(searchText) }
+        }
+    }
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            List(appState.groups, selection: $selectedGroup) { group in
-                GroupRow(group: group, keyCount: group.keyFingerprints.count)
-                    .tag(group)
-                    .contextMenu {
-                        Button("Rename…") {
-                            groupToRename = group
-                            renameText = group.name
-                            showRenameAlert = true
-                        }
-                        Divider()
-                        Button("Delete Group", role: .destructive) {
-                            appState.deleteGroup(group)
-                            if selectedGroup?.id == group.id { selectedGroup = nil }
-                        }
-                    }
-            }
-            .listStyle(.sidebar)
-            .overlay {
-                if appState.groups.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Groups", systemImage: "person.3")
-                    } description: {
-                        Text("Create a group to organize recipients for file encryption.")
-                    } actions: {
-                        Button("New Group") { showNewGroupAlert = true }
-                            .buttonStyle(.borderedProminent)
-                    }
+        Group {
+            if appState.groups.isEmpty {
+                ContentUnavailableView {
+                    Label("No Groups", systemImage: "person.3")
+                } description: {
+                    Text("A group is a set of people you encrypt files for together.")
+                } actions: {
+                    Button("New Group…") { showNewGroup = true }
+                        .buttonStyle(.borderedProminent)
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("New Group", systemImage: "plus") { showNewGroupAlert = true }
-                }
-            }
-            .navigationTitle("Groups")
-            .navigationSplitViewColumnWidth(min: 160, ideal: 200, max: 260)
-        } detail: {
-            Group {
-                if let group = selectedGroup, let idx = appState.groups.firstIndex(where: { $0.id == group.id }) {
-                    GroupDetailView(group: $appState.groups[idx])
-                } else {
-                    ContentUnavailableView("Select a Group", systemImage: "person.3", description: Text("Choose a group from the sidebar to manage its members."))
-                }
-            }
-            .toolbar {
-                if columnVisibility == .detailOnly {
-                    ToolbarItem(placement: .automatic) {
-                        Button {
-                            columnVisibility = .all
-                        } label: {
-                            Label("Show Groups", systemImage: "sidebar.left")
-                        }
-                        .help("Show groups list")
+            } else {
+                GeometryReader { proxy in
+                    HSplitView {
+                        groupList
+                            .frame(minWidth: 190, idealWidth: 230, maxWidth: 340)
+                            .frame(height: proxy.size.height, alignment: .top)
+                        detail
+                            .frame(minWidth: 380, maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .frame(height: proxy.size.height, alignment: .topLeading)
                     }
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
                 }
             }
         }
-        .navigationSplitViewStyle(.prominentDetail)
-        .alert("New Group", isPresented: $showNewGroupAlert) {
-            TextField("Group name", text: $newGroupName)
+        .navigationTitle("Groups")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("New Group", systemImage: "plus") { showNewGroup = true }
+            }
+        }
+        .onAppear(perform: ensureSelection)
+        .onChange(of: appState.groups) { ensureSelection() }
+        .alert("New Group", isPresented: $showNewGroup) {
+            TextField("Name", text: $newGroupName)
             Button("Create") {
-                let name = newGroupName.trimmingCharacters(in: .whitespaces)
-                if !name.isEmpty { appState.addGroup(name: name) }
+                let name = newGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
+                if !name.isEmpty {
+                    searchText = ""
+                    selectedGroupID = appState.addGroup(name: name)
+                }
                 newGroupName = ""
             }
             .keyboardShortcut(.defaultAction)
             Button("Cancel", role: .cancel) { newGroupName = "" }
         }
-        .alert("Rename Group", isPresented: $showRenameAlert) {
-            TextField("Group name", text: $renameText)
+        .alert("Rename Group", isPresented: Binding(
+            get: { renameTarget != nil },
+            set: { if !$0 { renameTarget = nil } }
+        )) {
+            TextField("Name", text: $renameText)
             Button("Rename") {
-                if let g = groupToRename {
-                    appState.renameGroup(g, to: renameText.trimmingCharacters(in: .whitespaces))
+                let name = renameText.trimmingCharacters(in: .whitespacesAndNewlines)
+                if let renameTarget, !name.isEmpty {
+                    appState.renameGroup(id: renameTarget.id, to: name)
                 }
             }
             .keyboardShortcut(.defaultAction)
             Button("Cancel", role: .cancel) {}
         }
     }
+
+    private var groupList: some View {
+        VStack(spacing: 0) {
+            SearchField(text: $searchText, prompt: "Search groups")
+                .padding(10)
+
+            List(selection: $selectedGroupID) {
+                ForEach(filteredGroups) { group in
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(group.name)
+                        Text(peopleCount(group.keyFingerprints.count))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 2)
+                    .tag(group.id)
+                    .contextMenu {
+                        Button("Rename…") {
+                            renameTarget = group
+                            renameText = group.name
+                        }
+                        Divider()
+                        Button("Delete Group", role: .destructive) { delete(group) }
+                    }
+                }
+            }
+            .listStyle(.inset)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onDeleteCommand {
+                if let group = appState.groups.first(where: { $0.id == selectedGroupID }) {
+                    delete(group)
+                }
+            }
+            .overlay {
+                if filteredGroups.isEmpty {
+                    ContentUnavailableView.search(text: searchText)
+                }
+            }
+
+            Divider()
+            HStack {
+                Button { showNewGroup = true } label: {
+                    Label("New Group", systemImage: "plus.circle")
+                }
+                .buttonStyle(.borderless)
+                Spacer()
+            }
+            .padding(10)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    }
+
+    @ViewBuilder
+    private var detail: some View {
+        if let selectedGroupID, appState.groups.contains(where: { $0.id == selectedGroupID }) {
+            GroupDetailView(groupID: selectedGroupID)
+                .id(selectedGroupID)
+        } else {
+            ContentUnavailableView {
+                Label("No Group Selected", systemImage: "person.3")
+            } description: {
+                Text("Choose a group to see who can open files encrypted for it.")
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+
+    private func ensureSelection() {
+        if selectedGroupID == nil || !appState.groups.contains(where: { $0.id == selectedGroupID }) {
+            selectedGroupID = appState.groups.first?.id
+        }
+    }
+
+    private func delete(_ group: KeyGroup) {
+        appState.deleteGroup(group)
+        ensureSelection()
+    }
 }
 
-struct GroupRow: View {
-    let group: KeyGroup
-    let keyCount: Int
-
-    var body: some View {
-        HStack {
-            Image(systemName: "person.3.fill")
-                .foregroundStyle(Color.accentColor)
-                .font(.callout)
-                .frame(width: 24)
-            VStack(alignment: .leading, spacing: 1) {
-                Text(group.name)
-                    .font(.body)
-                Text("\(keyCount) \(keyCount == 1 ? "key" : "keys")")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding(.vertical, 2)
-    }
+func peopleCount(_ count: Int) -> String {
+    count == 1 ? "1 person" : "\(count) people"
 }
